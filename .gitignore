@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Node.js dependencies
+node_modules/
+
+# Environment variables / API passwords
+.env
+
+# Config files that contain secrets
+config.js
+
+# Optional: build or output folders
+dist/
+build/
+
