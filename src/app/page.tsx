@@ -9,26 +9,22 @@ import NoticeBoardSection from "@/components/Sections/NoticeBoardSection";
 import MadamSection from "@/components/Sections/MadamSection";
 import Footer from "@/components/Footer/Footer";
 
-
-
-
-
 export default function HomePage() {
   return (
-    <>
-      
-      <HeaderTop />
-     <HeaderUpper />
-     <Banner />
-     <AboutSection />
-     <ChairmanSection />
-     <AchievementsSection />
-     <ManagingDirectorSection />
-     <NoticeBoardSection />
-    <MadamSection />
-    <Footer />
-
-    
-    </>
+    <div className="w-full max-w-full overflow-x-hidden">
+      {/* Only add horizontal padding for mobile, desktop remains full-width */}
+      <div className="px-4 md:px-0">
+        <HeaderTop />
+        <HeaderUpper />
+        <Banner />
+        <AboutSection />
+        <ChairmanSection />
+        <AchievementsSection />
+        <ManagingDirectorSection />
+        <NoticeBoardSection />
+        <MadamSection />
+        <Footer />
+      </div>
+    </div>
   );
 }
