@@ -19,7 +19,7 @@ const Banner = () => {
   const [transition, setTransition] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const slides = [...images, images[0]]; // duplicate first slide for smooth loop
+  const slides = [...images, images[0]]; 
 
   useEffect(() => {
     const interval = setInterval(() => {

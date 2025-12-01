@@ -3,7 +3,7 @@ export const brandOneLightColors = {
     bg: "#5A2C7C",
     text: "#FFFFFF",
     icon: "#00FF00",
-    iconHover: "#FFFFFF", // <-- add hover color here
+    iconHover: "#FFFFFF", 
   },
    headerUpper: {
     bg: "#FFFFFF",
@@ -22,53 +22,53 @@ export const brandOneLightColors = {
     closeHoverBg: "#F3F3F3",
   },
  searchOverlay: {
-    bg: "#FFFFFF", // Background of the overlay
-    text: "#000000", // Input text color
-    icon: "#000000", // Search icon color
-    iconHover: "#5A2C7C", // Hover color for search icon
-    border: "#B0B0B0", // Input bottom border color
-    errorBg: "#FFFFFF", // Background of error tooltip
-    errorBorder: "#000000", // Border of error tooltip
-    errorText: "#000000", // Text color inside error tooltip
-    errorIconBg: "#FF5A00", // Icon background inside error tooltip
+    bg: "#FFFFFF", 
+    text: "#000000",
+    icon: "#000000", 
+    iconHover: "#5A2C7C", 
+    border: "#B0B0B0", 
+    errorBg: "#FFFFFF", 
+    errorBorder: "#000000", 
+    errorText: "#000000", 
+    errorIconBg: "#FF5A00", 
   },
   banner: {
-    bg: "#FFFFFF", // background behind slides (optional)
-    indicatorActive: "#000000", // active dot
-    indicatorInactive: "#CCCCCC", // inactive dot
+    bg: "#FFFFFF",
+    indicatorActive: "#000000", 
+    indicatorInactive: "#CCCCCC", 
   },
  aboutSection: {
   bg: "#FFFFFF",     
-  text: "#000000",       // paragraph text
-  heading: "#000000",    // heading color
-  buttonBg: "#5A2C7C",   // base purple
-  buttonText: "#FFFFFF", // text on button
-  buttonHoverBg: "#FFC33C", // gold/yellow hover — noticeable
-  buttonHoverText: "#000000", // text changes to black for contrast
+  text: "#000000",       
+  heading: "#000000",    
+  buttonBg: "#5A2C7C",   
+  buttonText: "#FFFFFF", 
+  buttonHoverBg: "#FFC33C", 
+  buttonHoverText: "#000000", 
 },
 chairmanSection: {
-  bg: "#F8F6FF",        // soft light lilac background
-  text: "#2D1B4E",      // deep purple text
-  heading: "#1A0C33",   // darker heading text
+  bg: "#F8F6FF",        
+  text: "#2D1B4E",      
+  heading: "#1A0C33",   
   buttonBg: "#5A2C7C",   
   buttonText: "#FFFFFF",
-  buttonHoverBg: "#00330C", // ✔ darker blue hover
+  buttonHoverBg: "#00330C", 
   buttonHoverText: "#FFFFFF",
 },
 
 achievementsSection: {
-    bg: "#E6DAF0",          // soft purple
-    heading: "#00330C",     // dark purple for heading
-    buttonBg: "#5A2C7C",    // same as heading
+    bg: "#E6DAF0",         
+    heading: "#00330C",     
+    buttonBg: "#5A2C7C",  
     buttonText: "#FFFFFF",
     buttonHoverBg: "#0c0a0aff",
     buttonHoverText: "#FFFFFF",
   },
 
   managingDirectorSection: {
-  bg: "#F9FAFC",         // light subtle background
-  text: "#1F2937",       // dark text for readability
-  heading: "#5A2C7C",    // main purple theme for heading
+  bg: "#F9FAFC",        
+  text: "#1F2937",       
+  heading: "#5A2C7C",    
 },
 
 noticeBoardSection: {
@@ -78,7 +78,7 @@ noticeBoardSection: {
   tableHeaderText: "#FFFFFF",
   tableRowBg: "#FFFFFF",
   tableRowAltBg: "#F3F3F3",
-  tableBorder: "#0e0713ff", // <-- border color now fully multi-brand
+  tableBorder: "#0e0713ff", 
   buttonBg: "#5A2C7C",
   buttonText: "#FFFFFF",
   buttonHoverBg: "#00330C",
