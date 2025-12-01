@@ -9,7 +9,7 @@ export const useBrand = () => {
     colors: brandOne.colors,
     typography: brandOne.typography,
     spacing: brandOne.spacing,
-    banner: brandOne.banner,       // ✅ banner tokens
+    
     animation: brandOne.animation, // ✅ animation tokens
   };
 };
