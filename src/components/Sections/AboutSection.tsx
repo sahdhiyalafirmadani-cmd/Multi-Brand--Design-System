@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useBrand } from "@/theme/use-brand";
@@ -15,47 +16,38 @@ const AboutSection = () => {
       className={`${aboutSpacing.sectionPaddingMobile} md:${aboutSpacing.sectionPaddingDesktop}`}
       style={{ backgroundColor: aboutColors.bg }}
     >
-      {/* Parent container */}
       <div
-        className={`
-          max-w-7xl mx-auto px-4 
-          flex flex-col md:flex-row 
-          items-start md:items-center 
-          ${aboutSpacing.containerGap}     /* GAP FIXED HERE */
-        `}
+        className={`${aboutSpacing.containerMaxWidth} mx-auto flex flex-col md:flex-row items-start md:items-center ${aboutSpacing.containerGap}`}
       >
         {/* LEFT IMAGE */}
-     <div
-  className={`
-    relative
-    ${aboutSpacing.imageWidthDesktop} 
-    ${aboutSpacing.imageHeightDesktop}
-    mb-8 md:mb-0  md:ml-10
-  `}
->
-  <Image
-    src="/assets/images/sch pic.png"
-    alt="School"
-    fill
-    className="object-cover rounded-lg shadow-lg"
-  />
-</div>
-
+        <div
+          className={`flex justify-center w-full ${aboutSpacing.imageWidthDesktop} flex-shrink-0`}
+        >
+          <Image
+            src="/assets/images/sch_pic.png"
+            alt="School"
+            width={500} // adjust as needed
+            height={420}
+            className="rounded-lg shadow-lg object-cover"
+            priority
+          />
+        </div>
 
         {/* RIGHT TEXT */}
-       <div className={`flex-1 flex flex-col justify-center ${aboutSpacing.textOffsetDesktop}`}>
-
-          <h4
+        <div
+          className={`flex flex-col justify-center w-full ${aboutSpacing.textContainerWidthDesktop}`}
+        >
+          <h2
             className={`${aboutSpacing.headingSizeMobile} md:${aboutSpacing.headingSizeDesktop} ${aboutSpacing.headingWeight} ${aboutSpacing.headingMarginBottom}`}
             style={{ color: aboutColors.heading }}
           >
             Join us where we make excellence
             <br />
             <b>EDUCATION MEETS EXCELLENCE</b>
-          </h4>
+          </h2>
 
           <p
-            className={`${aboutSpacing.paragraphSizeMobile} md:${aboutSpacing.paragraphSizeDesktop} ${aboutSpacing.paragraphMarginBottom} ${aboutSpacing.paragraphLineHeight} text-justify`}
+            className={`${aboutSpacing.paragraphSizeMobile} md:${aboutSpacing.paragraphSizeDesktop} ${aboutSpacing.paragraphLineHeight} ${aboutSpacing.paragraphMarginBottom} text-justify`}
             style={{ color: aboutColors.text }}
           >
             Alif International School is a well-known educational institution

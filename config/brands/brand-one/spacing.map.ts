@@ -58,28 +58,43 @@ export const brandOneSpacing = {
     },
 
     // ABOUT SECTION SPACING
- about: {
-  sectionPaddingMobile: "py-10",
-  sectionPaddingDesktop: "py-20",
-  containerGap: "gap-12",
+about: {
+  // Section padding
+  sectionPaddingMobile: "py-10 px-4",
+  sectionPaddingDesktop: "py-20 md:px-10",
 
- 
-// Image sizes
-  imageWidthMobile: "w-full",      
-  imageWidthDesktop: "w-[500px]",   
-  imageHeightMobile: "h-80",        
-  imageHeightDesktop: "h-[420px]", 
+  // Max width for the container
+  containerMaxWidth: "max-w-7xl",
+
+  // Gap between image and text
+  containerGap: "gap-8 md:gap-16",
+
+  // Image — left side
+  imageWidthMobile: "w-full",
+  imageWidthDesktop: "md:w-1/2",
+  imageHeightMobile: "h-64",
+  imageHeightDesktop: "md:h-[420px]",
+
+  // Text container — right side
+  textContainerWidthMobile: "w-full",
+  textContainerWidthDesktop: "md:w-1/2",
+
+  // Heading
   headingSizeMobile: "text-2xl",
-  headingSizeDesktop: "text-3xl",
+  headingSizeDesktop: "md:text-3xl",
   headingWeight: "font-semibold",
   headingMarginBottom: "mb-4",
+
+  // Paragraph
   paragraphSizeMobile: "text-base",
-  paragraphSizeDesktop: "text-sm",
+  paragraphSizeDesktop: "md:text-sm",
   paragraphMarginBottom: "mb-6",
   paragraphLineHeight: "leading-relaxed",
+
+  // Button
   buttonGap: "gap-4",
-  textOffsetDesktop: "pl-10"
 },
+
 
 
        chairman: {

@@ -13,47 +13,49 @@ const images = [
 const Banner = () => {
   const { colors, spacing } = useBrand();
 
-  // ✅ Optional chaining to prevent client-side crash
   const bannerColors = colors?.banner;
   const bannerSpacing = spacing?.sections?.banner;
 
-  // If theme is missing, do not render
   if (!bannerColors || !bannerSpacing) return null;
 
   const [current, setCurrent] = useState(0);
   const [transition, setTransition] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const slides = [...images, images[0]]; // loop effect
+  const slides = [...images, images[0]];
 
-  // Slide interval
+  // Auto slide
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => prev + 1);
+    const timer = setInterval(() => {
+      setCurrent((p) => p + 1);
       setTransition(true);
     }, bannerSpacing.slideInterval);
-    return () => clearInterval(interval);
+    return () => clearInterval(timer);
   }, [bannerSpacing.slideInterval]);
 
-  // Loop back to first slide
+  // Loop reset
   useEffect(() => {
     if (current === slides.length - 1) {
-      const timeout = setTimeout(() => {
+      const t = setTimeout(() => {
         setTransition(false);
         setCurrent(0);
       }, bannerSpacing.transitionDuration);
-      return () => clearTimeout(timeout);
+      return () => clearTimeout(t);
     }
   }, [current, slides.length, bannerSpacing.transitionDuration]);
 
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ backgroundColor: bannerColors.bg }}
+      style={{
+        backgroundColor: bannerColors.bg,
+        ["--h-mobile" as any]: bannerSpacing.heightMobile,
+        ["--h-tablet" as any]: bannerSpacing.heightTablet,
+        ["--h-laptop" as any]: bannerSpacing.heightLaptop,
+        ["--h-desktop" as any]: bannerSpacing.heightDesktop,
+      }}
     >
-      {/* Slides */}
+      {/* SLIDER */}
       <div
-        ref={containerRef}
         className={`flex ${
           transition
             ? `transition-transform duration-[${bannerSpacing.transitionDuration}ms] ease-in-out`
@@ -62,26 +64,26 @@ const Banner = () => {
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {slides.map((src, index) => (
-          <div key={index} className="min-w-full relative">
+          <div key={index} className="min-w-full relative banner-slide-wrapper">
             <Image
               src={src}
-              alt={`Slide ${index + 1}`}
+              alt={`Slide ${index}`}
               fill
-              className="object-cover w-full h-full"
+              className="banner-img"
               priority
             />
           </div>
         ))}
       </div>
 
-      {/* Indicators */}
+      {/* INDICATORS */}
       <div
-        className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 flex ${bannerSpacing.contentGap}`}
+        className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex ${bannerSpacing.contentGap}`}
       >
         {images.map((_, index) => (
           <button
             key={index}
-            className="w-4 h-4 rounded-full transition-colors"
+            className="w-3 h-3 rounded-full transition-all"
             style={{
               backgroundColor:
                 index === current % images.length
@@ -89,29 +91,59 @@ const Banner = () => {
                   : bannerColors.indicatorInactive,
             }}
             onClick={() => setCurrent(index)}
-            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
 
-      {/* Responsive Heights */}
+      {/* RESPONSIVE HEIGHT + FIX FOR TINY DEVICES */}
       <style jsx>{`
-        div.min-w-full {
-          height: ${bannerSpacing.heightMobile};
+        /* Default mobile height */
+        .banner-slide-wrapper {
+          height: var(--h-mobile);
+          min-height: var(--h-mobile);
         }
-        @media (min-width: 768px) {
-          div.min-w-full {
-            height: ${bannerSpacing.heightTablet};
+
+        /* Fix tiny devices (320px width or less) */
+        @media (max-width: 360px) {
+          .banner-img {
+            object-fit: contain !important;
+            background-color: ${bannerColors.bg};
+          }
+          .banner-slide-wrapper {
+            height: calc(var(--h-mobile) + 60px);
           }
         }
+
+        /* Tablet */
+        @media (min-width: 640px) {
+          .banner-slide-wrapper {
+            height: var(--h-tablet);
+          }
+        }
+
+        /* Laptop */
         @media (min-width: 1024px) {
-          div.min-w-full {
-            height: ${bannerSpacing.heightLaptop};
+          .banner-slide-wrapper {
+            height: var(--h-laptop);
           }
         }
+
+        /* Desktop */
         @media (min-width: 1280px) {
-          div.min-w-full {
-            height: ${bannerSpacing.heightDesktop};
+          .banner-slide-wrapper {
+            height: var(--h-desktop);
+          }
+        }
+
+        /* MAIN IMAGE BEHAVIOR */
+        .banner-img {
+          object-fit: cover;
+        }
+
+        /* Very small height screens (landscape phones) */
+        @media (max-height: 550px) {
+          .banner-slide-wrapper {
+            height: 65vh;
           }
         }
       `}</style>
@@ -120,3 +152,4 @@ const Banner = () => {
 };
 
 export default Banner;
+
