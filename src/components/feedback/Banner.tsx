@@ -12,15 +12,21 @@ const images = [
 
 const Banner = () => {
   const { colors, spacing } = useBrand();
-  const bannerColors = colors.banner;
-  const bannerSpacing = spacing.sections.banner;
+
+  // ✅ Optional chaining to prevent client-side crash
+  const bannerColors = colors?.banner;
+  const bannerSpacing = spacing?.sections?.banner;
+
+  // If theme is missing, do not render
+  if (!bannerColors || !bannerSpacing) return null;
 
   const [current, setCurrent] = useState(0);
   const [transition, setTransition] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const slides = [...images, images[0]]; 
+  const slides = [...images, images[0]]; // loop effect
 
+  // Slide interval
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => prev + 1);
@@ -29,6 +35,7 @@ const Banner = () => {
     return () => clearInterval(interval);
   }, [bannerSpacing.slideInterval]);
 
+  // Loop back to first slide
   useEffect(() => {
     if (current === slides.length - 1) {
       const timeout = setTimeout(() => {
@@ -40,18 +47,22 @@ const Banner = () => {
   }, [current, slides.length, bannerSpacing.transitionDuration]);
 
   return (
-    <div className="relative w-full overflow-hidden" style={{ backgroundColor: bannerColors.bg }}>
+    <div
+      className="relative w-full overflow-hidden"
+      style={{ backgroundColor: bannerColors.bg }}
+    >
       {/* Slides */}
       <div
         ref={containerRef}
-        className={`flex ${transition ? `transition-transform duration-[${bannerSpacing.transitionDuration}ms] ease-in-out` : ""}`}
+        className={`flex ${
+          transition
+            ? `transition-transform duration-[${bannerSpacing.transitionDuration}ms] ease-in-out`
+            : ""
+        }`}
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {slides.map((src, index) => (
-          <div
-            key={index}
-            className="min-w-full relative"
-          >
+          <div key={index} className="min-w-full relative">
             <Image
               src={src}
               alt={`Slide ${index + 1}`}
@@ -64,7 +75,9 @@ const Banner = () => {
       </div>
 
       {/* Indicators */}
-      <div className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 flex ${bannerSpacing.contentGap}`}>
+      <div
+        className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 flex ${bannerSpacing.contentGap}`}
+      >
         {images.map((_, index) => (
           <button
             key={index}
