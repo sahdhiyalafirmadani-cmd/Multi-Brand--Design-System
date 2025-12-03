@@ -108,4 +108,58 @@ footerSection: {
   divider: "#3A3A4F",
 },
 
+//ABOUT PAGE 
+
+aboutBanner: {
+    bg: "#FFFFFF",
+  },
+
+    historySection: {
+    bg: "#FFFFFF",
+    heading: "#00330C",
+    text: "#000000",
+    buttonBg: "#5A2C7C",
+    buttonText: "#FFFFFF",
+    buttonHoverBg: "#00330C",
+    buttonHoverText: "#FFFFFF",
+  },
+
+   historyMontessoriSection: {
+    bg: "#F8F6FF",         
+    heading: "#1A0C33",   
+    text: "#333333",        
+    buttonBg: "#00330C",   
+    buttonText: "#ffffff", 
+    buttonHoverBg: "#5A2C7C", 
+    buttonHoverText: "#ffffff", 
+  },
+
+ourValuesSection: {
+  sectionBg: "#ffffff",       
+  boxBg: "#CBC3E3",           
+  heading: "#006400",          
+  text: "#555555",             
+},
+
+buildingCommitteeSection: {
+  sectionBg: "#F8F6FF",
+  heading: "#00330C",
+  memberText: "#555555",
+  sentenceText: "#777777",
+},
+
+foundingDirectorSection: {
+  sectionBg: "#F9FAFB",
+  heading: "#1A0C33",
+  text: "#333333",
+  signature: "#00695C",
+},
+
+financeDirectorSection: {
+  sectionBg: "#F4F6F7",     
+  heading: "#1A0C33",       
+  text: "#333333",         
+  signature: "#00695C",     
+},
+
 };

@@ -230,5 +230,110 @@ messageFromMadam: {
       messageHeadingSize: "text-lg sm:text-xl",
       messageHeadingWeight: "font-semibold",
     },
+
+
+    //ABOUT PAGE 
+ aboutBanner: {
+  sectionPadding: "pt-0 pb-10 md:pb-16 lg:pb-20", 
+  heightClasses: "h-[200px] sm:h-[200px] md:h-[200px] lg:h-[300px]",
+},
+
+ historySection: {
+  sectionPadding: "pt-0 pb-16 px-6 md:pt-2 md:pb-16 md:px-10", 
+  containerMaxWidth: "max-w-7xl",
+  containerGap: "gap-8 md:gap-16",
+  headingSize: "text-4xl md:text-4xl",
+  headingWeight: "font-bold",
+  headingMarginBottom: "mb-8",
+  paragraphSize: "text-base md:text-sm",
+  paragraphLineHeight: "leading-relaxed",
+  paragraphMarginBottom: "mb-6",
+  buttonWidth: "180px", 
+  buttonAlign: "flex justify-center md:justify-start",
+  imageWidth: "w-full md:w-1/2",
+  imageHeight: "h-64 md:h-[400px]", 
+  contentGap: "gap-8 md:gap-12",
+},
+
+ historyMontessoriSection: {
+  sectionPadding: "py-16 px-6 md:py-16 md:px-10",
+  containerMaxWidth: "max-w-7xl",
+  containerGap: "gap-8 md:gap-16",
+
+  // Heading & Paragraph sizes moved here for multi-brand
+  headingSize: "text-4xl md:text-3xl lg:text-4xl", 
+  headingMarginBottom: "mb-8",
+  paragraphSize: "text-base md:text-sm",
+  paragraphMarginBottom: "mb-6",
+
+  // Button
+  buttonWidth: "180px", 
+  buttonAlign: "flex justify-center md:justify-start",
+
+  // Image
+  imageWidth: "w-full md:w-1/2",
+  imageHeight: "h-64 md:h-[420px]",
+
+  // Layout
+  contentGap: "gap-8 md:gap-12",
+},
+
+ourValuesSection: {
+  sectionPadding: "py-12 px-6 md:py-16",  
+  containerMaxWidth: "max-w-7xl mx-auto",
+  containerGap: "gap-6 md:gap-6",
+  boxWidth: "w-full md:w-1/3",       
+  boxPadding: "p-4 md:p-6",           
+  boxGap: "space-y-3",
+  boxBorderRadius: "rounded-xl",      
+  headingFont: "text-2xl md:text-3xl font-bold underline",
+  textFont: "text-base md:text-lg text-gray-600",
+
+   logo: {
+    opacity: 0.1,
+    width: "80%",        
+    height: "80%",       
+    transition: "transform 0.3s ease",
+  },
+},
+
+buildingCommitteeSection: {
+  sectionPadding: "py-12 px-6 md:py-16",
+  containerMaxWidth: "max-w-4xl",
+  headingMarginBottom: "mb-8",
+  headingFont: "text-3xl md:text-4xl font-bold underline",
+  membersGap: "space-y-2 md:space-y-3 mt-4",
+  memberFont: "text-lg md:text-xl font-semibold",
+  sentenceMarginTop: "mt-6 md:mt-8",
+},
+
+foundingDirectorSection: {
+  sectionPadding: "py-12 px-6 md:py-20",
+  containerMaxWidth: "max-w-6xl",
+  headingFont: "text-3xl md:text-4xl font-bold ",
+  headingMarginBottom: "mb-10",
+
+  contentGap: "gap-8 md:gap-16",
+
+  imageWrapper: "w-full md:w-[30%] flex justify-center",
+  imageStyle: "w-full h-auto",
+
+  textWrapper: "w-full md:w-[70%] text-justify",
+},
+
+financeDirectorSection: {
+  sectionPadding: "py-12 px-6 md:py-20",
+  containerMaxWidth: "max-w-6xl",
+
+  headingFont: "text-3xl md:text-4xl font-bold ",
+  headingMarginBottom: "mb-10",
+
+  contentGap: "gap-8 md:gap-16",
+
+  imageWrapper: "w-full md:w-[40%] flex justify-center",
+  imageStyle: "w-full h-auto",
+
+  textWrapper: "w-full md:w-[70%] text-justify",
+},
   },
 };

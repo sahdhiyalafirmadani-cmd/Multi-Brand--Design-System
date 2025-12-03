@@ -12,7 +12,7 @@ import { useBrand } from "@/theme/use-brand";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us" },
+  { label: "About Us", href: "/about" },
   { label: "Achievements", href: "/achievements" },
   { label: "Events", href: "/events" },
   { label: "Calendar", href: "/calendar" },
