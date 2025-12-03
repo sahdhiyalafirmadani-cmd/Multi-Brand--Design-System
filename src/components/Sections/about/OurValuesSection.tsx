@@ -18,7 +18,8 @@ const OurValuesSection = () => {
         {["Our Motto", "Our Mission", "Our Vision"].map((title, index) => (
           <div
             key={index}
-            className={`${section.boxWidth} ${section.boxPadding} ${section.boxBorderRadius} flex flex-col items-center ${section.boxGap} relative overflow-hidden transform transition-transform duration-300 hover:scale-105 group`}
+            className={`${section.boxWidth} ${section.boxPadding} ${section.boxBorderRadius} flex flex-col items-center ${section.boxGap} relative overflow-hidden transform transition-transform duration-300 
+                        hover:scale-105 active:scale-105 focus:scale-105 group`}
             style={{ backgroundColor: sectionColors.boxBg }}
           >
             {/* Background Logo */}
@@ -32,7 +33,7 @@ const OurValuesSection = () => {
                   opacity: section.logo.opacity,
                   transition: section.logo.transition,
                 }}
-                className="group-hover:scale-110"
+                className="group-hover:scale-110 group-active:scale-110 group-focus:scale-110"
               />
             </div>
 
