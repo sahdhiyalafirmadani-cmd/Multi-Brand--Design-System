@@ -162,4 +162,37 @@ financeDirectorSection: {
   signature: "#00695C",     
 },
 
+// Achievements page
+
+achievementsBanner: {
+    bg: "#FFFFFF",
+  },
+
+  achievementsAcademic: {
+  bg: "#FFFFFF",
+
+  heading: "#000000",
+
+  tableBorder: "#000000",
+  tableHeaderBg: "#6A1B9A",
+  tableHeaderText: "#FFFFFF",
+  tableRowText: "#000000",
+},
+
+achievementsAchievers: {
+  bg: "#F6F8FB",
+  name: "#000000",
+  description: "#374151",
+},
+
+athleticAchievements: {
+  bg: "#F3F4F6",
+  heading: "#000000",
+},
+
 };
+
+
+
+
+

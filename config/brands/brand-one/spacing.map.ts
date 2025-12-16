@@ -335,5 +335,62 @@ financeDirectorSection: {
 
   textWrapper: "w-full md:w-[70%] text-justify",
 },
+
+    //ACHIEVEMENTS PAGE 
+ achievementsBanner: {
+  sectionPadding: "pt-0 pb-10 md:pb-16 lg:pb-20", 
+  heightClasses: "h-[200px] sm:h-[200px] md:h-[200px] lg:h-[300px]",
+},
+
+achievementsAcademic: {
+  sectionPadding: "py-6 md:py-10 lg:py-12",
+
+  // Headings
+  headingWrapper: "flex flex-col items-center text-center",
+  headingGap: "gap-3",
+  headingSize: "text-xl md:text-2xl lg:text-3xl",
+  headingWeight: "font-bold",
+
+  // Table wrapper – full width scrollable container
+ tableWrapper: "mt-6 w-full overflow-x-auto",
+  tableContainer: "min-w-[600px] md:min-w-[600px] lg:min-w-[400px] lg:max-w-[1000px] mx-auto",
+  tableWidth: "w-auto mx-auto border-collapse",
+
+  // Table cells
+  cellPadding: "px-3 py-2",
+  cellText: "text-sm md:text-sm",
+},
+
+achievementsAchievers: {
+  sectionPadding: "py-8 md:py-12",
+
+  wrapper: "flex flex-col items-center gap-10",
+
+  itemWrapper: "flex flex-col items-center text-center gap-3",
+
+  imageWrapper:
+    "relative w-24 h-24 md:w-32 md:h-32  overflow-hidden",
+
+  nameText: "text-base md:text-lg font-bold",
+
+  descriptionText:
+    "text-sm md:text-base max-w-xl text-center leading-relaxed",
+},
+
+athleticAchievements: {
+  // Section padding
+  sectionPadding: "py-8 md:py-12",
+
+  // Wrapper for all headings
+  headingWrapper: "flex flex-col items-center text-center gap-4 w-full",
+
+  // Headings: same size on small screens
+  headingSize: "text-2xl sm:text-2xl md:text-3xl lg:text-3xl",
+  headingWeight: "font-bold",
+
+  // Items (individual headings + images)
+  itemWrapper: "flex flex-col items-center text-center gap-3",
+  imageWrapper: "relative w-32 h-32 md:w-40 md:h-40 mx-auto",
+},
   },
 };
