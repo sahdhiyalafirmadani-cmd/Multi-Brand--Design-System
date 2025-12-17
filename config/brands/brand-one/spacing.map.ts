@@ -392,5 +392,72 @@ athleticAchievements: {
   itemWrapper: "flex flex-col items-center text-center gap-3",
   imageWrapper: "relative w-32 h-32 md:w-40 md:h-40 mx-auto",
 },
+
+//events 
+
+eventsTerm: {
+  sectionPadding: "py-8 md:py-12",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-xl md:text-2xl font-bold",
+
+  /* TABLE */
+  tableWrapper: "w-full overflow-x-auto flex justify-center",
+
+  tableContainer:
+    "w-full md:w-[90%] lg:w-[60%] mx-auto",
+
+  table: "w-full border-collapse",
+
+  cellPadding: "px-3 py-2",
+  cellText: "text-sm md:text-base",
+},
+
+eventsExams: {
+  sectionPadding: "py-8 md:py-12",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-xl md:text-2xl font-bold",
+
+  /* SUBHEADING */
+  subHeading: "text-lg md:text-xl font-semibold text-center mb-4", // gap added via mb-4
+
+  /* TABLE */
+  tableWrapper: "w-full overflow-x-auto flex justify-center mb-8", // add bottom margin for spacing after table
+  tableContainer: "w-full md:w-[90%] lg:w-[60%] mx-auto",
+  table: "w-full border-collapse",
+  cellPadding: "px-3 py-2",
+  cellText: "text-sm md:text-base text-left", // left align table content
+},
+
+eventsSeminar: {
+  sectionPadding: "py-8 md:py-12",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-xl md:text-2xl font-bold",
+
+  /* TABLE */
+  tableWrapper: "w-full overflow-x-auto flex justify-center mb-8",
+  tableContainer: "w-full md:w-[90%] lg:w-[60%] mx-auto",
+  table: "w-full border-collapse",
+  cellPadding: "px-3 py-2",
+  cellText: "text-sm md:text-base text-left", // align content left
+},
+
+eventsFieldTrips: {
+  sectionPadding: "py-8 md:py-12",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-xl md:text-2xl font-bold",
+
+  tableWrapper: "w-full overflow-x-auto flex justify-center mb-4",
+  tableContainer: "w-full md:w-[85%] lg:w-[85%] mx-auto",
+  table: "w-full border-collapse",
+  cellPadding: "px-3 py-2",
+  cellText: "text-sm md:text-base text-left",
+
+ imagesWrapper: "flex flex-wrap justify-center gap-4 mt-4 mb-8",
+image: "w-full sm:w-[30%] md:w-[25%] lg:w-[20%] h-auto rounded shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer",
+},
   },
 };

@@ -190,6 +190,50 @@ athleticAchievements: {
   heading: "#000000",
 },
 
+//events
+eventsTerm: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+
+  tableHeaderBg: "#6A1B9A", // purple
+  tableHeaderText: "#FFFFFF",
+
+  tableBorder: "#000000",
+  tableText: "#000000",
+},
+
+eventsExams: {
+  bg: "#F6F8FB",
+  heading: "#000000",
+
+  tableHeaderBg: "#6A1B9A", // purple
+  tableHeaderText: "#FFFFFF",
+
+  tableBorder: "#000000",
+  tableText: "#000000",
+},
+
+eventsSeminar: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+
+  tableHeaderBg: "#6A1B9A", // purple
+  tableHeaderText: "#FFFFFF",
+
+  tableBorder: "#000000",
+  tableText: "#000000",
+},
+
+eventsFieldTrips: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+
+  tableHeaderBg: "#6A1B9A",
+  tableHeaderText: "#FFFFFF",
+
+  tableBorder: "#000000",
+  tableText: "#000000",
+},
 };
 
 
