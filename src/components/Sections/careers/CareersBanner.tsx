@@ -3,32 +3,30 @@
 import { useEffect, useState } from "react";
 import { useBrand } from "@/theme/use-brand";
 
-const AchievementsBanner = () => {
+const CareersBanner = () => {
   const { spacing, colors } = useBrand();
-  const s = spacing.sections.achievementsBanner;
-  const c = colors.achievementsBanner;
+  const s = spacing.sections.careersBanner;
+  const c = colors.careersBanner;
 
   const [image, setImage] = useState("");
   const [alt, setAlt] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/sheetData?sheet=achievementsPage");
+      const res = await fetch("/api/sheetData?sheet=careersPage");
       const data = await res.json();
       if (!Array.isArray(data)) return;
 
       setImage(
         data.find(
-          (i: any) =>
-            i.componentName === "AchievementsBanner_Image"
+          (i: any) => i.componentName === "Careers_Banner_Image"
         )?.value || ""
       );
 
       setAlt(
         data.find(
-          (i: any) =>
-            i.componentName === "AchievementsBanner_Alt"
-        )?.value || "Achievements"
+          (i: any) => i.componentName === "Careers_Banner_Alt"
+        )?.value || "Careers"
       );
     };
 
@@ -50,4 +48,4 @@ const AchievementsBanner = () => {
   );
 };
 
-export default AchievementsBanner;
+export default CareersBanner;

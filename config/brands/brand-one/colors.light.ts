@@ -234,6 +234,18 @@ eventsFieldTrips: {
   tableBorder: "#000000",
   tableText: "#000000",
 },
+
+//Career
+
+careersBanner: {
+  bg: "#FFFFFF",
+},
+
+careersTeachers: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+},
 };
 
 

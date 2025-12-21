@@ -337,9 +337,12 @@ financeDirectorSection: {
 },
 
     //ACHIEVEMENTS PAGE 
- achievementsBanner: {
-  sectionPadding: "pt-0 pb-10 md:pb-16 lg:pb-20", 
-  heightClasses: "h-[200px] sm:h-[200px] md:h-[200px] lg:h-[300px]",
+achievementsBanner: {
+  sectionPadding: "pt-0 pb-10 md:pb-16 lg:pb-10",
+
+  imageWrapper: "w-full",
+  image:
+    "w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[350px] object-cover",
 },
 
 achievementsAcademic: {
@@ -458,6 +461,35 @@ eventsFieldTrips: {
 
  imagesWrapper: "flex flex-wrap justify-center gap-4 mt-4 mb-8",
 image: "w-full sm:w-[30%] md:w-[25%] lg:w-[20%] h-auto rounded shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer",
+},
+
+//Career
+
+careersBanner: {
+  sectionPadding: "py-0",
+  imageWrapper: "w-full",
+  image:
+    "w-full h-[180px] sm:h-[240px] md:h-[320px] lg:h-[350px] object-cover",
+},
+
+careersTeachers: {
+  sectionPadding: "py-10 md:py-14 lg:py-16",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-xl md:text-2xl lg:text-3xl font-bold",
+
+  contentWrapper:
+    "w-full max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center gap-8",
+
+  textWrapper: "w-full md:w-1/2",
+  paragraph:
+    "text-sm md:text-base leading-relaxed text-justify",
+
+  imageWrapper:
+    "w-full md:w-1/2 flex justify-center",
+
+  image:
+    "w-[85%] sm:w-[70%] md:w-full max-w-[420px] rounded shadow-md object-cover",
 },
   },
 };
