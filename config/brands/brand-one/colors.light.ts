@@ -246,6 +246,26 @@ careersTeachers: {
   heading: "#000000",
   text: "#333333",
 },
+
+//Gallery
+
+gallerySectionOne: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+},
+
+gallerySportsMeet: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+},
+
+galleryIndependence: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+},
 };
 
 

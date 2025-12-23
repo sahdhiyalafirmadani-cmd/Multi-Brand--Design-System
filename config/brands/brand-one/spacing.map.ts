@@ -468,28 +468,66 @@ image: "w-full sm:w-[30%] md:w-[25%] lg:w-[20%] h-auto rounded shadow transition
 careersBanner: {
   sectionPadding: "py-0",
   imageWrapper: "w-full",
-  image:
-    "w-full h-[180px] sm:h-[240px] md:h-[320px] lg:h-[350px] object-cover",
+  image:"w-full h-[180px] sm:h-[240px] md:h-[320px] lg:h-[350px] object-cover",
 },
 
 careersTeachers: {
   sectionPadding: "py-10 md:py-14 lg:py-16",
-
   headingWrapper: "flex justify-center mb-6",
   headingSize: "text-xl md:text-2xl lg:text-3xl font-bold",
-
-  contentWrapper:
-    "w-full max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center gap-8",
-
+  contentWrapper:"w-full max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center gap-8",
   textWrapper: "w-full md:w-1/2",
-  paragraph:
-    "text-sm md:text-base leading-relaxed text-justify",
+  paragraph:"text-sm md:text-base leading-relaxed text-justify",
+  imageWrapper: "w-full md:w-1/2 flex justify-center",
+  image:"w-[85%] sm:w-[70%] md:w-full max-w-[420px] rounded shadow-md object-cover",
+},
 
+//GALLERY PAGE
+
+ gallerySectionOne: {
+  sectionPadding: "py-8 md:py-12",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-xl md:text-3xl font-bold",
+
+  galleryWrapper: "flex overflow-x-auto gap-4",
   imageWrapper:
-    "w-full md:w-1/2 flex justify-center",
+    "flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] h-[150px] md:h-[200px] lg:h-[250px] object-cover rounded shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer",
+},
+
+gallerySportsMeet: {
+  sectionPadding: "py-8 md:py-12 px-4",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-2xl md:text-4xl font-bold text-center",
+
+  /* container for all rows */
+  rowsWrapper: "flex flex-col gap-6",
+
+  /* each row of images */
+  imageRow: "flex justify-center flex-wrap gap-4",
+
+  /* image styling */
+  image:
+    "w-[150px] sm:w-[180px] md:w-[220px] h-auto rounded shadow hover:scale-105 transition-transform",
+},
+
+galleryIndependence: {
+  sectionPadding: "py-8 md:py-12 px-4",
+
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-2xl md:text-4xl font-bold text-center",
+
+  rowsWrapper: "flex flex-col gap-6",
+
+  /* Horizontal scroll small screens, wrap & center on medium+ screens */
+  scrollRow:
+    "flex gap-4 py-2 overflow-x-auto flex-nowrap sm:flex-nowrap md:flex-wrap md:justify-center",
 
   image:
-    "w-[85%] sm:w-[70%] md:w-full max-w-[420px] rounded shadow-md object-cover",
+    "w-[150px] sm:w-[180px] md:w-[220px] h-auto rounded shadow hover:scale-105 transition-transform",
 },
+
+
   },
 };
