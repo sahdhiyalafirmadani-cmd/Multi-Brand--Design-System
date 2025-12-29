@@ -18,7 +18,7 @@ const navItems = [
   { label: "Calendar", href: "/calendar" },
   { label: "Gallery", href: "/gallery" },
   { label: "Careers", href: "/careers" },
-  { label: "Contact Us", href: "/contact-us" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 const HeaderUpper = () => {

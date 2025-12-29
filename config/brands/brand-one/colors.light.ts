@@ -266,6 +266,25 @@ galleryIndependence: {
   heading: "#000000",
   text: "#333333",
 },
+
+
+// contact
+
+contactBanner: {
+  bg: "#FFFFFF", // white background
+},
+
+ contactSections: {
+    bg: "#FFFFFF",
+    heading: "#000000",
+    text: "#4B4B4B",
+  },
+
+    contactFormMap: {
+    bg: "#FFFFFF",
+    inputText: "#000000",
+    buttonText: "#FFFFFF",
+  },
 };
 
 

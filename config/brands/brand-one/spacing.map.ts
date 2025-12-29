@@ -527,7 +527,84 @@ galleryIndependence: {
   image:
     "w-[150px] sm:w-[180px] md:w-[220px] h-auto rounded shadow hover:scale-105 transition-transform",
 },
+ 
 
+//contact 
+contactBanner: {
+  sectionPadding: "pt-0 pb-10 md:pb-16 lg:pb-10",
+
+  imageWrapper: "w-full",
+  image:
+    "w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[350px] object-cover",
+},
+
+
+    contactSections: {
+      sectionPadding: "pt-10 pb-14 md:pb-16 lg:pb-20",
+      sectionWrapper: "flex flex-col md:flex-row justify-center items-center gap-10 md:gap-16 lg:gap-20",
+      itemWrapper: "flex flex-col items-center text-center gap-4",
+      image: "w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] lg:w-[140px] lg:h-[140px] object-contain",
+      heading: "font-bold text-xl md:text-2xl lg:text-3xl",
+      text: "text-sm md:text-base lg:text-lg whitespace-pre-line",
+    },
+
+   /* contactFormMap: {
+      sectionPadding: "pt-10 pb-14 md:pb-16 lg:pb-20",
+      sectionWrapper:
+        "flex flex-col md:flex-row items-start md:items-center justify-center gap-10 md:gap-16 lg:gap-20",
+      formWrapper:
+        "w-full md:w-1/2 flex flex-col gap-4 md:pl-8 lg:pl-16", // shifts form slightly to the middle
+      input:
+        "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500",
+      textarea:
+        "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none",
+      button:
+        "bg-purple-600 text-white font-bold px-6 py-2 rounded hover:bg-purple-700 transition-colors",
+      
+        mapWrapper: "w-full md:w-1/2 h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px]",
+      iframe: "w-full h-full border-0",
+    },*/
+
+   contactFormMap: {
+  /* SECTION */
+  sectionPadding: "pt-8 pb-12 sm:pt-10 sm:pb-14 md:pb-16 lg:pb-20",
+
+  /* MAIN LAYOUT */
+  sectionWrapper:
+    "flex flex-col md:flex-row items-stretch justify-center gap-6 sm:gap-8 md:gap-14 lg:gap-20",
+
+  /* 🔹 GOOGLE FORM (LEFT) */
+  formWrapper:
+    `
+    w-full
+    md:w-1/2
+    flex
+    justify-center
+    px-3 sm:px-4 md:px-0
+    h-[85vh]
+    sm:h-[90vh]
+    md:h-auto
+    md:min-h-[650px]
+    lg:min-h-[720px]
+    `,
+
+  /* 🔹 MAP (RIGHT) */
+  mapWrapper:
+    `
+    w-full
+    md:w-1/2
+    px-3 sm:px-4 md:px-0
+    h-[60vh]
+    sm:h-[65vh]
+    md:h-auto
+    md:min-h-[450px]
+    lg:min-h-[520px]
+    `,
+
+  /* 🔹 IFRAME */
+  iframe:
+    "w-full h-full border-0 rounded-md",
+},
 
   },
 };
