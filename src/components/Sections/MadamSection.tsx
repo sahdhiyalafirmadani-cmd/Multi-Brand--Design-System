@@ -43,7 +43,7 @@ const MadamSection = () => {
           <div className="flex justify-center md:justify-start">
             <Button
               text="READ MORE"
-              onClick={() => (window.location.href = "/message-from-madam")}
+              onClick={() => (window.location.href = "/madam")}
               colors={madamColors}
               className="w-40 md:w-48"
             />

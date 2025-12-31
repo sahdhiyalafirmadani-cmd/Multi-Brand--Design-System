@@ -606,5 +606,90 @@ contactBanner: {
     "w-full h-full border-0 rounded-md",
 },
 
+// Calendar
+
+ calendarSection: {
+  sectionPadding: "pt-10 pb-14 md:pb-16 lg:pb-20",
+  headingWrapper: "flex flex-col items-center gap-4 mb-6",
+  headingSize: "text-2xl md:text-3xl lg:text-4xl font-bold text-center",
+  tableWrapper: "w-full overflow-x-auto",
+  tableContainer: "w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] mx-auto", // slightly smaller on all devices
+  tableWidth: "w-full border-collapse border",
+  cellPadding: "px-3 py-2", // slightly smaller padding
+  cellText: "text-left",
+},
+
+//madam
+
+madam: {
+  sectionPadding: "py-12 md:py-16 lg:py-20",
+  headingWrapper: "flex justify-center mb-8",
+  headingSize: "text-xl md:text-2xl lg:text-3xl font-bold text-center",
+
+  contentWrapper:
+    "w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center gap-8",
+
+  imageWrapper: "flex justify-center",
+  image:
+    "w-[160px] sm:w-[180px] md:w-[200px] rounded-full shadow-md object-cover",
+
+  textWrapper: "w-full",
+  paragraph:
+  "text-sm md:text-base leading-relaxed text-center md:text-justify whitespace-pre-line",
+},
+
+//chairman
+
+messageChairman: {
+  sectionPadding: "py-12 md:py-16 lg:py-20",
+
+  headingWrapper: "flex justify-center mb-8",
+  headingSize: "text-xl md:text-2xl lg:text-3xl font-bold text-center",
+
+  contentWrapper:
+    "w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center gap-8",
+
+  imageWrapper: "flex justify-center",
+  image:
+    "w-[160px] sm:w-[180px] md:w-[200px] rounded-full shadow-md object-cover",
+
+  textWrapper: "w-full",
+  paragraph:
+    "text-sm md:text-base leading-relaxed text-center md:text-justify whitespace-pre-line",
+},
+
+//historyAlif
+
+historyAlif: {
+  sectionPadding: "py-12 md:py-16 lg:py-20",
+
+  headingWrapper: "flex justify-center mb-8",
+  headingSize: "text-xl md:text-2xl lg:text-3xl font-bold text-center",
+
+  contentWrapper:
+    "w-full max-w-5xl mx-auto px-4 sm:px-6 flex flex-col items-center gap-10",
+
+  imageWrapper: "w-full flex justify-center",
+  image:
+    "w-full max-w-[500px] rounded-md shadow-md object-cover",
+
+  textWrapper: "w-full",
+  paragraph:
+    "text-sm md:text-base leading-relaxed text-center md:text-justify whitespace-pre-line",
+},
+
+//historyMontessori
+
+historyMontessori: {
+  sectionPadding: "py-10 md:py-14 lg:py-16",
+  headingWrapper: "flex justify-center mb-6",
+  headingSize: "text-xl md:text-2xl lg:text-3xl font-bold text-center",
+  imageWrapper: "flex justify-center mb-6",
+  image: "w-[85%] sm:w-[70%] md:w-[50%] max-w-[420px] rounded-md shadow-md object-cover",
+  textWrapper: "w-full max-w-4xl mx-auto px-4 sm:px-6",
+  paragraph: "text-sm md:text-base leading-relaxed text-justify",
+},
+
+
   },
 };

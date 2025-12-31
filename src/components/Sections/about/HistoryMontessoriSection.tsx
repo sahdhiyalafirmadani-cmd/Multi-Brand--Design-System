@@ -70,7 +70,7 @@ const HistoryMontessoriSection = () => {
               text="READ MORE"
               className={`${history.buttonAlign} mt-4`}
               width={history.buttonWidth} 
-              onClick={() => router.push("/about/history-of-montessori")}
+              onClick={() => router.push("/historyMontessori")}
               colors={{
                 buttonBg: sectionColors.buttonBg,
                 buttonText: sectionColors.buttonText,

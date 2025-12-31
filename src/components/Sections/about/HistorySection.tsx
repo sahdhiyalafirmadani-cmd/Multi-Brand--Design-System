@@ -58,7 +58,7 @@ const HistorySection = () => {
               text="READ MORE"
               className={`${history.buttonAlign} mt-4`}
               width={history.buttonWidth}
-              onClick={() => router.push("/about/history-of-alif")}
+              onClick={() => router.push("/historyAlif")}
               colors={{
                 buttonBg: sectionColors.buttonBg,
                 buttonText: sectionColors.buttonText,

@@ -65,7 +65,7 @@ const AboutSection = () => {
           </p>
 
           <div className={aboutSpacing.buttonGap}>
-            <Link href="/about-us">
+            <Link href="/about">
               <Button text="LEARN MORE" colors={aboutColors} />
             </Link>
           </div>

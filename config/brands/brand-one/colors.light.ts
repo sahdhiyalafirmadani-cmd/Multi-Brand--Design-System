@@ -285,6 +285,48 @@ contactBanner: {
     inputText: "#000000",
     buttonText: "#FFFFFF",
   },
+
+  //Calendar page
+calendarSection: {
+    bg: "#FFFFFF", // background of calendar section
+    heading: "#000000", // heading color
+    tableHeaderBg: "purple",
+    tableHeaderText: "#FFFFFF",
+    tableRowText: "#000000",
+    tableBorder: "#000000",
+  },
+
+  //madam
+
+  madam: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+},
+
+//chairman
+
+messageChairman: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+},
+
+//historyALif
+
+historyAlif: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+},
+
+//historyMontessori
+
+historyMontessori: {
+  bg: "#FFFFFF",
+  heading: "#000000",
+  text: "#333333",
+}
 };
 
 
