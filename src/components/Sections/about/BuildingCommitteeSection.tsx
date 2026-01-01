@@ -1,50 +1,82 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useBrand } from "@/theme/use-brand";
 
 const BuildingCommitteeSection = () => {
-  const { spacing, colors, typography } = useBrand();
-  const section = spacing.sections.buildingCommitteeSection;
-  const sectionColors = colors.buildingCommitteeSection;
+  const { colors, spacing, typography } = useBrand();
+  const s = spacing.sections.buildingCommitteeSection;
+  const c = colors.buildingCommitteeSection;
+
+  const [heading, setHeading] = useState("");
+  const [members, setMembers] = useState<string[]>([]);
+  const [appreciation, setAppreciation] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=aboutPage");
+        const data = await res.json();
+        if (!Array.isArray(data)) return;
+
+        const get = (name: string) =>
+          data.find((i: any) => i.componentName === name)?.value || "";
+
+        setHeading(get("BuildingCommittee_Heading"));
+
+        const memberNames = data
+          .filter(
+            (i: any) =>
+              i.componentName && i.componentName.startsWith("BuildingCommittee_Member")
+          )
+          .map((i: any) => i.value || "");
+        setMembers(memberNames);
+
+        setAppreciation(get("BuildingCommittee_Appreciation"));
+      } catch (error) {
+        console.error("Error fetching Building Committee data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!heading) return null;
 
   return (
-    <section
-      className={`w-full ${section.sectionPadding}`}
-      style={{ backgroundColor: sectionColors.sectionBg }}
-    >
-      <div className={`mx-auto ${section.containerMaxWidth} text-center`}>
-        
+    <section className={s.sectionPadding} style={{ backgroundColor: c.sectionBg }}>
+      <div className={s.container}>
         {/* Heading */}
-        <h2
-          className={`${typography.heading} ${section.headingFont} ${section.headingMarginBottom}`}
-          style={{ color: sectionColors.heading }}
-        >
-          Building Committee
-        </h2>
-
-        {/* Committee Members */}
-        <div className={`${section.membersGap}`}>
-          <h3 className={`${typography.subheading} ${section.memberFont}`} style={{ color: sectionColors.memberText }}>
-            Al Haj Y. I. M. Hareez
-          </h3>
-          <h3 className={`${typography.subheading} ${section.memberFont}`} style={{ color: sectionColors.memberText }}>
-            Al Haj M. S. M. Fazlan
-          </h3>
-          <h3 className={`${typography.subheading} ${section.memberFont}`} style={{ color: sectionColors.memberText }}>
-            Al Haj M. M. M. M. Fazlan
-          </h3>
-          <h3 className={`${typography.subheading} ${section.memberFont}`} style={{ color: sectionColors.memberText }}>
-            Al Haj M. Z. M. Ifham
-          </h3>
+        <div className={s.headingWrapper}>
+          <h2
+            className={`${typography.heading} ${s.headingSize} ${s.headingWeight} ${s.headingMarginBottom}`}
+            style={{ color: c.heading }}
+          >
+            {heading}
+          </h2>
         </div>
 
-        {/* Appreciation Sentence */}
-        <p
-          className={`${typography.body} ${section.sentenceMarginTop}`}
-          style={{ color: sectionColors.sentenceText }}
-        >
-          We respect and appreciate the invaluable service rendered by the above TEAM in completing the building complex on time.
-        </p>
+        {/* Members */}
+        <div className={s.membersGap}>
+          {members.map((name, idx) => (
+            <h3
+              key={idx}
+              className={`${typography.subheading} ${s.memberFont}`}
+              style={{ color: c.memberText }}
+            >
+              {name}
+            </h3>
+          ))}
+        </div>
+
+        {/* Appreciation */}
+        {appreciation && (
+          <p
+            className={`${typography.body} ${s.sentenceMarginTop}`}
+            style={{ color: c.sentenceText }}
+            dangerouslySetInnerHTML={{ __html: appreciation }}
+          />
+        )}
       </div>
     </section>
   );

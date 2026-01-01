@@ -1,81 +1,98 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useBrand } from "@/theme/use-brand";
 
 const FinanceDirectorSection = () => {
   const { spacing, colors, typography } = useBrand();
-  const section = spacing.sections.financeDirectorSection;
-  const sectionColors = colors.financeDirectorSection;
+  const s = spacing.sections.financeDirectorSection;
+  const c = colors.financeDirectorSection;
+
+  const [data, setData] = useState({
+    heading: "",
+    paragraph: "",
+    image: "",
+    imageAlt: "",
+    signature: "",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=aboutPage");
+        const sheetData = await res.json();
+        if (!Array.isArray(sheetData)) return;
+
+        const get = (name: string) =>
+          sheetData.find((i: any) => i.componentName === name)?.value || "";
+
+        setData({
+          heading: get("FinanceDirector_Heading"),
+          paragraph: get("FinanceDirector_Paragraph"),
+          image: get("FinanceDirector_Image"),
+          imageAlt: get("FinanceDirector_Alt"),
+          signature: get("FinanceDirector_Signature"),
+        });
+      } catch (error) {
+        console.error("Error fetching Finance Director data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data.heading) return null;
 
   return (
     <section
-      className={`w-full ${section.sectionPadding}`}
-      style={{ backgroundColor: sectionColors.sectionBg }}
+      className={s.sectionPadding}
+      style={{ backgroundColor: c.sectionBg }}
     >
-      <div className={`mx-auto ${section.containerMaxWidth}`}>
+      <div className={s.containerMaxWidth}>
 
         {/* Heading */}
         <h2
-          className={`text-center ${section.headingFont} ${section.headingMarginBottom}`}
-          style={{ color: sectionColors.heading }}
+          className={`${typography.heading} ${s.headingFont} ${s.headingMarginBottom} ${s.headingWrapper}`}
+          style={{ color: c.heading }}
         >
-          MESSAGE FROM FINANCE DIRECTOR
+          {data.heading}
         </h2>
 
-        {/* Content Row */}
-        <div
-          className={`flex flex-col-reverse md:flex-row items-start md:items-center ${section.contentGap}`}
-        >
+        {/* Content Container */}
+        <div className={s.contentContainer}>
 
-          {/* LEFT – TEXT */}
-          <div className={`${section.textWrapper}`}>
-            <p className={`${typography.body} leading-relaxed`} style={{ color: sectionColors.text }}>
-              I am glad to write this on the launching of Alif International
-              School (AIS-DT), Dharga Town website. People going through this
-              website will realize the glimpse of in-depth happening in AIS-DT.
-              <br /><br />
+          {/* TEXT */}
+          <div className={s.textWrapper}>
+            {data.paragraph && (
+              <p
+                className={typography.body}
+                style={{ color: c.text }}
+                dangerouslySetInnerHTML={{ __html: data.paragraph }}
+              />
+            )}
 
-              AIS-DT has its own complete infrastructure and it is situated in
-              a highly educational environment by the side of a pleasant river.
-              Our well experienced principal Mrs. Nazneen Ousmand is 
-              instrumental in the continuous progress and actively involved 
-              in various activities that have brought to light the hidden 
-              talents of the college students and staff.
-              <br /><br />
-
-              AIS-DT charges nominal fees to make quality education affordable 
-              to the general public of Dharga Town and its vicinity. Further, 
-              AIS-DT offers scholarships to deserving high achieving students.
-              <br /><br />
-
-              AIS-DT is doing good in all directions, wishing a bright future 
-              to all students and staff.
-              <br /><br />
-
-              Ending with a quote…
-              <br /><br />
-
-              <i>“Education will be expensive, but ignorance will be disastrous.”</i>
-              <br /><br />
-
-              <b style={{ color: sectionColors.signature }}>
-                Mr. Azeem Ismail<br />
-                Director – Finance
-              </b>
-            </p>
+            {data.signature && (
+              <b
+                style={{ color: c.signature }}
+                dangerouslySetInnerHTML={{ __html: data.signature }}
+              />
+            )}
           </div>
 
-          {/* RIGHT – IMAGE */}
-          <div className={`${section.imageWrapper}`}>
-            <Image
-              src="/assets/images/about us/fd.png"
-              alt="Finance Director"
-              width={400}
-              height={400}
-              className={`rounded-xl shadow-lg object-cover ${section.imageStyle}`}
-            />
-          </div>
+          {/* IMAGE */}
+          {data.image && (
+            <div className={s.imageWrapper}>
+              <Image
+                src={data.image}
+                alt={data.imageAlt}
+                width={400}
+                height={400}
+                className={s.imageStyle}
+              />
+            </div>
+          )}
+
         </div>
       </div>
     </section>

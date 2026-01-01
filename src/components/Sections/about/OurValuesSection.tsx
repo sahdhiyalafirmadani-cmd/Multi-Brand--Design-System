@@ -1,82 +1,95 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useBrand } from "@/theme/use-brand";
 import Image from "next/image";
+
+interface SheetItem {
+  componentName?: string;
+  textLabel?: string;
+  value?: string;
+}
 
 const OurValuesSection = () => {
   const { spacing, colors } = useBrand();
   const section = spacing.sections.ourValuesSection;
   const sectionColors = colors.ourValuesSection;
 
+  const [data, setData] = useState<SheetItem[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/sheetData?sheet=aboutPage");
+      const sheetData: SheetItem[] = await res.json();
+      if (!Array.isArray(sheetData)) return;
+      setData(sheetData);
+    };
+    fetchData();
+  }, []);
+
+  if (!data.length) return null;
+
+  const logoUrl = data.find((i) => i.componentName === "OurValues_Logo")?.value || "";
+
+  const boxKeys = ["Motto", "Mission", "Vision"];
+  const boxes = boxKeys.map((key) => {
+    const heading = data.find((i) => i.componentName === `OurValues_${key}_Heading`)?.value || "";
+    const content = data.find((i) => i.componentName === `OurValues_${key}_Content`)?.value || "";
+    return { heading, content };
+  });
+
   return (
     <section
       className={`w-full ${section.sectionPadding}`}
       style={{ backgroundColor: sectionColors.sectionBg }}
     >
-      <div className={`${section.containerMaxWidth} flex flex-col md:flex-row justify-center ${section.containerGap}`}>
-
-        {["Our Motto", "Our Mission", "Our Vision"].map((title, index) => (
+      <div className={`${section.containerMaxWidth} ${section.containerFlex} ${section.containerGap}`}>
+        {boxes.map((box, idx) => (
           <div
-            key={index}
-            className={`${section.boxWidth} ${section.boxPadding} ${section.boxBorderRadius} flex flex-col items-center ${section.boxGap} relative overflow-hidden transform transition-transform duration-300 
-                        hover:scale-105 active:scale-105 focus:scale-105 group`}
+            key={idx}
+            className={`${section.boxWidth} ${section.boxPadding} ${section.boxBorderRadius} ${section.boxFlex} ${section.boxGap} ${section.boxHoverTransform} relative overflow-hidden group`}
             style={{ backgroundColor: sectionColors.boxBg }}
           >
-            {/* Background Logo */}
-            <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-              <Image
-                src="/assets/images/school logo.png"
-                alt="Logo"
-                fill
+            {/* Centered Background Logo */}
+            {logoUrl && (
+              <div
+                className="absolute top-1/2 left-1/2 pointer-events-none"
                 style={{
-                  objectFit: "contain",
+                  width: section.logo.width,
+                  height: section.logo.height,
+                  transform: "translate(-50%, -50%)",
                   opacity: section.logo.opacity,
                   transition: section.logo.transition,
                 }}
-                className="group-hover:scale-110 group-active:scale-110 group-focus:scale-110"
-              />
-            </div>
+              >
+                <Image
+                  src={logoUrl}
+                  alt={boxes[idx].heading}
+                  fill
+                  style={{ objectFit: section.logo.objectFit as any }}
+                  className={section.logo.className} // hover scale
+                />
+              </div>
+            )}
 
             {/* Heading */}
             <h2
-              className={`${section.headingFont} relative z-10 text-center`}
+              className={`${section.headingFont} ${section.headingFlex}`}
               style={{ color: sectionColors.heading }}
             >
-              {title}
+              {box.heading}
             </h2>
 
             {/* Content */}
-            <div className="relative z-10 text-center">
-              {title === "Our Motto" && (
-                <div className="flex flex-col mt-0 md:mt-6 space-y-1">
-                  <p className={section.textFont}>Knowledge</p>
-                  <p className={section.textFont}>Discipline</p>
-                  <p className={section.textFont}>Through Perseverance</p>
-                </div>
-              )}
-              {title === "Our Mission" && (
-                <p className={`${section.textFont} mt-4`}>
-                  To provide a ‘total education’ which would<br />
-                  help to provide physically, socially,<br />
-                  intellectually and morally developed citizens,<br />
-                  who would find unity in diversity and achieve<br />
-                  self realization by being pragmatic,<br />
-                  productive and useful to society.
+            <div className={section.textFlex}>
+              {box.content.split("<br />").map((line, i) => (
+                <p key={i} className={section.textFont}>
+                  {line}
                 </p>
-              )}
-              {title === "Our Vision" && (
-                <p className={`${section.textFont} mt-4`}>
-                  To be the foremost private Education<br />
-                  Institute in the region, providing quality<br />
-                  education, at an affordable rate; capable of<br />
-                  guiding students to be successful global<br />
-                  citizens, with a strong spiritual base.
-                </p>
-              )}
+              ))}
             </div>
           </div>
         ))}
-
       </div>
     </section>
   );

@@ -1,72 +1,96 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useBrand } from "@/theme/use-brand";
 
 const FoundingDirectorSection = () => {
   const { spacing, colors, typography } = useBrand();
-  const section = spacing.sections.foundingDirectorSection;
-  const sectionColors = colors.foundingDirectorSection;
+  const s = spacing.sections.foundingDirectorSection;
+  const c = colors.foundingDirectorSection;
+
+  const [data, setData] = useState({
+    heading: "",
+    paragraph: "",
+    image: "",
+    imageAlt: "",
+    signature: "",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=aboutPage");
+        const sheetData = await res.json();
+        if (!Array.isArray(sheetData)) return;
+
+        const get = (name: string) =>
+          sheetData.find((i: any) => i.componentName === name)?.value || "";
+
+        setData({
+          heading: get("FoundingDirector_Heading"),
+          paragraph: get("FoundingDirector_Paragraph"),
+          image: get("FoundingDirector_Image"),
+          imageAlt: get("FoundingDirector_Alt"),
+          signature: get("FoundingDirector_Signature"),
+        });
+      } catch (error) {
+        console.error("Error fetching Founding Director data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data.heading) return null;
 
   return (
     <section
-      className={`w-full ${section.sectionPadding}`}
-      style={{ backgroundColor: sectionColors.sectionBg }}
+      className={s.sectionPadding}
+      style={{ backgroundColor: c.sectionBg }}
     >
-      <div className={`mx-auto ${section.containerMaxWidth}`}>
+      <div className={s.containerMaxWidth}>
 
         {/* Heading */}
         <h2
-          className={`text-center ${typography.heading} ${section.headingFont} ${section.headingMarginBottom}`}
-          style={{ color: sectionColors.heading }}
+          className={`${typography.heading} ${s.headingFont} ${s.headingMarginBottom} ${s.headingWrapper}`}
+          style={{ color: c.heading }}
         >
-          MESSAGE FROM FOUNDING DIRECTOR
+          {data.heading}
         </h2>
 
-        {/* Container */}
-        <div className={`flex flex-col md:flex-row items-center ${section.contentGap}`}>
+        {/* Content Container */}
+        <div className={s.contentContainer}>
 
           {/* Image */}
-          <div className={`flex-shrink-0 ${section.imageWrapper}`}>
-            <Image
-              src="/assets/images/about us/fd.jpg"
-              alt="Founding Director"
-              width={400}
-              height={400}
-              className={`rounded-xl shadow-md ${section.imageStyle}`}
-            />
-          </div>
+          {data.image && (
+            <div className={s.imageWrapper}>
+              <Image
+                src={data.image}
+                alt={data.imageAlt}
+                width={400}
+                height={400}
+                className={s.imageStyle}
+              />
+            </div>
+          )}
 
           {/* Paragraph */}
-          <div className={`${section.textWrapper}`}>
-            <p
-              className={`${typography.body} leading-relaxed`}
-              style={{ color: sectionColors.text }}
-            >
-              I’m indeed happy to send this message of congratulations on
-              the occasion of the launching of the brand new website of my
-              beloved Alif International School, managed by Alif Education
-              Foundation (Pvtm) Ltd.<br /><br />
+          <div className={s.textWrapper}>
+            {data.paragraph && (
+              <p
+                className={typography.body}
+                style={{ color: c.text }}
+                dangerouslySetInnerHTML={{ __html: data.paragraph }}
+              />
+            )}
 
-              Although 20 years have lapsed since the inception of the
-              school, it’s heartening to know that a sincere effort has been
-              made at this important juncture, to launch a full fledged
-              website for the benefit of all the stakeholders including the
-              management, teachers, students, parents and the well wishers.<br /><br />
-
-              I sincerely hope that this website will be very helpful in boosting
-              the image of the school while helping people to know about its
-              vision, mission and its day to day academic and extra
-              curricular activities. This website also will provide an
-              opportunity for effective and fast communication among the
-              main stakeholders.
-              I sincerely wish the project success in achieving its goals!<br /><br />
-
-              <b style={{ color: sectionColors.signature }}>
-                Hafiz Issadeen<br />
-                Founder Principal / Director
-              </b>
-            </p>
+            {data.signature && (
+              <b
+                style={{ color: c.signature }}
+                dangerouslySetInnerHTML={{ __html: data.signature }}
+              />
+            )}
           </div>
 
         </div>

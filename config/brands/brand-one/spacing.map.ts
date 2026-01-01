@@ -233,108 +233,137 @@ messageFromMadam: {
 
 
     //ABOUT PAGE 
- aboutBanner: {
-  sectionPadding: "pt-0 pb-10 md:pb-16 lg:pb-20", 
+aboutBanner: {
+  sectionPadding: "pt-0 pb-10 md:pb-16 lg:pb-20",
   heightClasses: "h-[200px] sm:h-[200px] md:h-[200px] lg:h-[300px]",
+  imageWrapper: "w-full relative overflow-hidden",
+  image: "w-full h-full object-cover object-top",
 },
 
- historySection: {
-  sectionPadding: "pt-0 pb-16 px-6 md:pt-2 md:pb-16 md:px-10", 
-  containerMaxWidth: "max-w-7xl",
+historySection: {
+  sectionPadding: "pt-0 pb-16 px-6 md:pt-2 md:pb-16 md:px-10",
+
+  container: "max-w-7xl mx-auto flex flex-col items-center",
   containerGap: "gap-8 md:gap-16",
+
+  headingWrapper: "w-full flex justify-center",
   headingSize: "text-4xl md:text-4xl",
   headingWeight: "font-bold",
   headingMarginBottom: "mb-8",
+
+  contentRow: "w-full flex flex-col md:flex-row",
+  contentGap: "gap-8 md:gap-12",
+
+  leftColumn: "w-full md:w-1/2 flex flex-col",
+  rightColumn: "w-full md:w-1/2 flex justify-center items-center",
+
   paragraphSize: "text-base md:text-sm",
   paragraphLineHeight: "leading-relaxed",
   paragraphMarginBottom: "mb-6",
-  buttonWidth: "180px", 
+
+  buttonWidth: "180px",
   buttonAlign: "flex justify-center md:justify-start",
-  imageWidth: "w-full md:w-1/2",
-  imageHeight: "h-64 md:h-[400px]", 
-  contentGap: "gap-8 md:gap-12",
+
+  imageWrapper: "relative w-full",
+  imageHeight: "h-64 md:h-[400px]",
 },
 
  historyMontessoriSection: {
   sectionPadding: "py-16 px-6 md:py-16 md:px-10",
-  containerMaxWidth: "max-w-7xl",
+
+  container: "max-w-7xl mx-auto flex flex-col items-center",
   containerGap: "gap-8 md:gap-16",
 
-  // Heading & Paragraph sizes moved here for multi-brand
-  headingSize: "text-4xl md:text-3xl lg:text-4xl", 
+  headingWrapper: "w-full",
+  headingSize: "text-4xl md:text-3xl lg:text-4xl",
   headingMarginBottom: "mb-8",
+
+  contentRow: "w-full flex flex-col md:flex-row items-center",
+  contentGap: "gap-8 md:gap-12",
+
+  leftColumn: "w-full md:w-1/2 flex justify-center items-center cursor-pointer",
+  rightColumn: "w-full md:w-1/2 flex flex-col",
+
   paragraphSize: "text-base md:text-sm",
   paragraphMarginBottom: "mb-6",
 
-  // Button
-  buttonWidth: "180px", 
+  buttonWidth: "180px",
   buttonAlign: "flex justify-center md:justify-start",
 
-  // Image
-  imageWidth: "w-full md:w-1/2",
-  imageHeight: "h-64 md:h-[420px]",
-
-  // Layout
-  contentGap: "gap-8 md:gap-12",
+  image: "rounded transition-transform duration-300 hover:scale-105",
 },
-
 ourValuesSection: {
-  sectionPadding: "py-12 px-6 md:py-16",  
+  sectionPadding: "py-12 px-6 md:py-16",
   containerMaxWidth: "max-w-7xl mx-auto",
+  containerFlex: "flex flex-col md:flex-row justify-center",
   containerGap: "gap-6 md:gap-6",
-  boxWidth: "w-full md:w-1/3",       
-  boxPadding: "p-4 md:p-6",           
-  boxGap: "space-y-3",
-  boxBorderRadius: "rounded-xl",      
-  headingFont: "text-2xl md:text-3xl font-bold underline",
-  textFont: "text-base md:text-lg text-gray-600",
 
-   logo: {
-    opacity: 0.1,
-    width: "80%",        
-    height: "80%",       
+  boxWidth: "w-full md:w-1/3",
+  boxPadding: "p-4 md:p-6",
+  boxGap: "space-y-3",
+  boxBorderRadius: "rounded-xl",
+  boxFlex: "flex flex-col items-center",
+  boxHoverTransform: "transform transition-transform duration-300 hover:scale-105",
+
+  headingFont: "text-2xl md:text-3xl font-bold underline",
+  headingFlex: "relative z-10 text-center",
+
+  textFont: "text-base md:text-lg text-gray-600",
+  textFlex: "relative z-10 text-center mt-4",
+
+  logo: {
+    width: "80%",        // relative to box width
+    height: "80%",       // relative to box height
+    objectFit: "contain",
+    opacity: 0.15,
     transition: "transform 0.3s ease",
+    className: "group-hover:scale-110",
   },
 },
 
-buildingCommitteeSection: {
-  sectionPadding: "py-12 px-6 md:py-16",
-  containerMaxWidth: "max-w-4xl",
-  headingMarginBottom: "mb-8",
-  headingFont: "text-3xl md:text-4xl font-bold underline",
-  membersGap: "space-y-2 md:space-y-3 mt-4",
-  memberFont: "text-lg md:text-xl font-semibold",
-  sentenceMarginTop: "mt-6 md:mt-8",
-},
+ buildingCommitteeSection: {
+      sectionPadding: "py-12 px-6 md:py-16",
+      container: "max-w-4xl mx-auto text-center",
+      headingWrapper: "flex justify-center mb-6",
+      headingSize: "text-3xl md:text-4xl",
+      headingWeight: "font-bold underline",
+      headingMarginBottom: "mb-8",
+      membersGap: "flex flex-col items-center gap-2 md:gap-3 mt-4", // <-- ensure flex-col & gap
+      memberFont: "text-lg md:text-xl font-semibold",
+      sentenceMarginTop: "mt-6 md:mt-8 text-center", // <-- ensure visible & centered
+    },
 
-foundingDirectorSection: {
-  sectionPadding: "py-12 px-6 md:py-20",
-  containerMaxWidth: "max-w-6xl",
-  headingFont: "text-3xl md:text-4xl font-bold ",
-  headingMarginBottom: "mb-10",
+   foundingDirectorSection: {
+      sectionPadding: "py-12 px-6 md:py-20",
+      containerMaxWidth: "max-w-6xl mx-auto",
 
-  contentGap: "gap-8 md:gap-16",
+      headingWrapper: "text-center",
+      headingFont: "text-3xl md:text-4xl font-bold",
+      headingMarginBottom: "mb-10",
 
-  imageWrapper: "w-full md:w-[30%] flex justify-center",
-  imageStyle: "w-full h-auto",
+      contentContainer: "flex flex-col md:flex-row items-center gap-8 md:gap-16",
 
-  textWrapper: "w-full md:w-[70%] text-justify",
-},
+      imageWrapper: "w-full md:w-[30%] flex justify-center flex-shrink-0",
+      imageStyle: "w-full h-auto rounded-xl shadow-md",
 
-financeDirectorSection: {
-  sectionPadding: "py-12 px-6 md:py-20",
-  containerMaxWidth: "max-w-6xl",
+      textWrapper: "w-full md:w-[70%] text-justify",
+    },
 
-  headingFont: "text-3xl md:text-4xl font-bold ",
-  headingMarginBottom: "mb-10",
+  financeDirectorSection: {
+      sectionPadding: "py-12 px-6 md:py-20",
+      containerMaxWidth: "max-w-6xl mx-auto",
 
-  contentGap: "gap-8 md:gap-16",
+      headingWrapper: "text-center",
+      headingFont: "text-3xl md:text-4xl font-bold",
+      headingMarginBottom: "mb-10",
 
-  imageWrapper: "w-full md:w-[40%] flex justify-center",
-  imageStyle: "w-full h-auto",
+      contentContainer: "flex flex-col-reverse md:flex-row items-start md:items-center gap-8 md:gap-16",
 
-  textWrapper: "w-full md:w-[70%] text-justify",
-},
+      imageWrapper: "w-full md:w-[40%] flex justify-center flex-shrink-0",
+      imageStyle: "w-full h-auto rounded-xl shadow-lg object-cover",
+
+      textWrapper: "w-full md:w-[60%] text-justify",
+    },
 
     //ACHIEVEMENTS PAGE 
 achievementsBanner: {

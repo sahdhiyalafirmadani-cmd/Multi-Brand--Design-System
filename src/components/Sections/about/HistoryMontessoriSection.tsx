@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useBrand } from "@/theme/use-brand";
 import { useRouter } from "next/navigation";
@@ -7,75 +8,88 @@ import AboutButton from "@/components/primitives/Button/AboutButton";
 
 const HistoryMontessoriSection = () => {
   const { colors, spacing, typography } = useBrand();
-  const history = spacing.sections.historyMontessoriSection;
-  const sectionColors = colors.historyMontessoriSection;
+  const s = spacing.sections.historyMontessoriSection;
+  const c = colors.historyMontessoriSection;
   const router = useRouter();
 
+  const [heading, setHeading] = useState("");
+  const [paragraph, setParagraph] = useState("");
+  const [buttonText, setButtonText] = useState("");
+  const [buttonLink, setButtonLink] = useState("");
+  const [image, setImage] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/sheetData?sheet=aboutPage");
+      const data = await res.json();
+      if (!Array.isArray(data)) return;
+
+      const get = (name: string) =>
+        data.find((i: any) => i.componentName === name)?.value || "";
+
+      setHeading(get("HistoryMontessori_Heading"));
+      setParagraph(get("HistoryMontessori_Paragraph"));
+      setButtonText(get("HistoryMontessori_ButtonText"));
+      setButtonLink(get("HistoryMontessori_ButtonLink"));
+      setImage(get("HistoryMontessori_Image"));
+      setImageAlt(get("HistoryMontessori_ImageAlt"));
+    };
+
+    fetchData();
+  }, []);
+
+  if (!heading || !paragraph) return null;
+
   return (
-    <section
-      className={`w-full ${history.sectionPadding}`}
-      style={{ backgroundColor: sectionColors.bg }}
-    >
-      <div className={`max-w-7xl mx-auto flex flex-col items-center ${history.contentGap}`}>
+    <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
+      <div className={`${s.container} ${s.containerGap}`}>
 
-        {/* Heading - Full width */}
-        <h2
-          className={`${typography.heading} ${history.headingSize} ${history.headingMarginBottom} text-center w-full`}
-          style={{ color: sectionColors.heading }}
-        >
-          HISTORY OF ALIF MONTESSORI
-        </h2>
+        {/* Heading */}
+        <div className={s.headingWrapper}>
+          <h2
+            className={`${typography.heading} ${s.headingSize} ${s.headingMarginBottom} text-center`}
+            style={{ color: c.heading }}
+          >
+            {heading}
+          </h2>
+        </div>
 
-        {/* Content Row */}
-        <div className={`w-full flex flex-col md:flex-row items-center ${history.contentGap}`}>
+        {/* Content */}
+        <div className={`${s.contentRow} ${s.contentGap}`}>
 
-          {/* Left Image */}
-          <div className={`w-full md:w-1/2 flex justify-center items-center mt-8 md:mt-0 cursor-pointer`}>
-            <Image
-              src="/assets/images/about us/montessori.jpg"
-              alt="Montessori Image"
-              width={500}
-              height={500}
-              style={{ objectFit: "cover" }}
-              className="rounded transition-transform duration-300 hover:scale-105"
-            />
+          {/* Image */}
+          <div className={s.leftColumn}>
+            {image && (
+              <Image
+                src={image}
+                alt={imageAlt}
+                width={500}
+                height={500}
+                className={s.image}
+                style={{ objectFit: "cover" }}
+              />
+            )}
           </div>
 
-          {/* Right Paragraph + Button */}
-          <div className="w-full md:w-1/2 flex flex-col mt-8 md:mt-0">
+          {/* Text */}
+          <div className={s.rightColumn}>
             <p
-              className={`${typography.body} ${history.paragraphSize} ${history.paragraphMarginBottom} text-justify`}
-              style={{ color: sectionColors.text }}
-            >
-              Alif International Montessori was the brainchild of a number of
-              prominent businessmen from Dharga Town, who felt that there
-              was a need for an English Medium School in the area.<br /><br />
-
-              Former Chairman Mr. M.M.Nizam, Late Mr.M.Z.M.Zaheer, Mr.M.S.M.
-              Faslan and Mr. M.R.M.M.Hussain Sadique were some of the
-              efficient Directors who were in the forefront.<br /><br />
-
-              The school was modeled by Mrs.Zulfica Marikar like PRE-OSC
-              branch of the Overseas School of Colombo (oldest and only 
-              accredited International School in Sri Lanka). The first recruited
-              teachers who pioneered were Mrs.Insifa Imran and
-              Mrs.Latheefa Faiz.<br /><br />
-
-              Mr.Haniffa, the Manager of the school at the time did an
-              efficient job. The Montessori started with 50 students and within 
-              3 months the numbers rose to 100.
-            </p>
+              className={`${typography.body} ${s.paragraphSize} ${s.paragraphMarginBottom} text-justify`}
+              style={{ color: c.text }}
+              dangerouslySetInnerHTML={{ __html: paragraph }}
+            />
 
             <AboutButton
-              text="READ MORE"
-              className={`${history.buttonAlign} mt-4`}
-              width={history.buttonWidth} 
-              onClick={() => router.push("/historyMontessori")}
+              text={buttonText}
+              className={s.buttonAlign}
+              width={s.buttonWidth}
+              onClick={() => router.push(buttonLink)}
               colors={{
-                buttonBg: sectionColors.buttonBg,
-                buttonText: sectionColors.buttonText,
-                buttonHoverBg: sectionColors.buttonHoverBg,
-                buttonHoverText: sectionColors.buttonHoverText,
+                buttonBg: c.buttonBg,
+                buttonText: c.buttonText,
+                buttonHoverBg: c.buttonHoverBg,
+                buttonHoverText: c.buttonHoverText,
               }}
             />
           </div>
