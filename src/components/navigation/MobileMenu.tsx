@@ -7,24 +7,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useBrand } from "@/theme/use-brand";
 
-interface MobileMenuProps {
-  open: boolean;
-  setOpen: (value: boolean) => void;
-}
-
 interface NavItem {
   label: string;
   href: string;
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen }) => {
+interface MobileMenuProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  navItems: NavItem[];
+}
+
+const MobileMenu: React.FC<MobileMenuProps> = ({
+  open,
+  setOpen,
+  navItems,
+}) => {
   const { colors, typography, spacing } = useBrand();
   const menuColors = colors.mobileMenu;
 
   const [logo, setLogo] = useState("");
-  const [navItems, setNavItems] = useState<NavItem[]>([]);
 
-  /* ================= FETCH FROM GOOGLE SHEET ================= */
+  /* ================= FETCH ONLY LOGO ================= */
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("/api/sheetData?sheet=headerUpper");
@@ -34,22 +38,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen }) => {
       const getValue = (name: string) =>
         data.find((i: any) => i.componentName === name)?.value || "";
 
-      // Logo
       setLogo(getValue("Header_Logo"));
-
-      // Nav items
-      const rawItems = getValue("Header_NavItems");
-      const parsedItems = rawItems
-        ? rawItems.split(";").map((item: string) => {
-            const [label, href] = item.split(",");
-            return {
-              label: label.trim(),
-              href: href.trim(),
-            };
-          })
-        : [];
-
-      setNavItems(parsedItems);
     };
 
     fetchData();
