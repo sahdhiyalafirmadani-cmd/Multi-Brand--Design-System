@@ -1,14 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useBrand } from "@/theme/use-brand";
-
-const images = [
-  "/assets/images/1.png",
-  "/assets/images/2.png",
-  "/assets/images/3.png",
-];
 
 const Banner = () => {
   const { colors, spacing } = useBrand();
@@ -16,32 +10,64 @@ const Banner = () => {
   const bannerColors = colors?.banner;
   const bannerSpacing = spacing?.sections?.banner;
 
-  if (!bannerColors || !bannerSpacing) return null;
-
+  const [images, setImages] = useState<string[]>([]);
   const [current, setCurrent] = useState(0);
   const [transition, setTransition] = useState(true);
 
-  const slides = [...images, images[0]];
-
-  // Auto slide
+  /* ================= FETCH FROM GOOGLE SHEET ================= */
   useEffect(() => {
+    const fetchImages = async () => {
+      const res = await fetch("/api/sheetData?sheet=homePage");
+      const data = await res.json();
+      if (!Array.isArray(data)) return;
+
+      const bannerImages = data
+        .filter(
+          (i: any) =>
+            typeof i.componentName === "string" &&
+            i.componentName.startsWith("Banner_Image_")
+        )
+        .map((i: any) => i.value)
+        .filter(Boolean);
+
+      setImages(bannerImages);
+    };
+
+    fetchImages();
+  }, []);
+
+  /* ================= AUTO SLIDE ================= */
+  useEffect(() => {
+    if (images.length === 0) return;
+
     const timer = setInterval(() => {
       setCurrent((p) => p + 1);
       setTransition(true);
     }, bannerSpacing.slideInterval);
-    return () => clearInterval(timer);
-  }, [bannerSpacing.slideInterval]);
 
-  // Loop reset
+    return () => clearInterval(timer);
+  }, [images.length, bannerSpacing.slideInterval]);
+
+  /* ================= LOOP RESET ================= */
   useEffect(() => {
-    if (current === slides.length - 1) {
+    if (images.length === 0) return;
+
+    if (current === images.length) {
       const t = setTimeout(() => {
         setTransition(false);
         setCurrent(0);
       }, bannerSpacing.transitionDuration);
+
       return () => clearTimeout(t);
     }
-  }, [current, slides.length, bannerSpacing.transitionDuration]);
+  }, [current, images.length, bannerSpacing.transitionDuration]);
+
+  /* ================= SAFE GUARD ================= */
+  if (!bannerColors || !bannerSpacing || images.length === 0) {
+    return null;
+  }
+
+  const slides = [...images, images[0]];
 
   return (
     <div
@@ -67,7 +93,7 @@ const Banner = () => {
           <div key={index} className="min-w-full relative banner-slide-wrapper">
             <Image
               src={src}
-              alt={`Slide ${index}`}
+              alt={`Banner Slide ${index + 1}`}
               fill
               className="banner-img"
               priority
@@ -95,15 +121,13 @@ const Banner = () => {
         ))}
       </div>
 
-      {/* RESPONSIVE HEIGHT + FIX FOR TINY DEVICES */}
+      {/* RESPONSIVE HEIGHT FIXES */}
       <style jsx>{`
-        /* Default mobile height */
         .banner-slide-wrapper {
           height: var(--h-mobile);
           min-height: var(--h-mobile);
         }
 
-        /* Fix tiny devices (320px width or less) */
         @media (max-width: 360px) {
           .banner-img {
             object-fit: contain !important;
@@ -114,33 +138,28 @@ const Banner = () => {
           }
         }
 
-        /* Tablet */
         @media (min-width: 640px) {
           .banner-slide-wrapper {
             height: var(--h-tablet);
           }
         }
 
-        /* Laptop */
         @media (min-width: 1024px) {
           .banner-slide-wrapper {
             height: var(--h-laptop);
           }
         }
 
-        /* Desktop */
         @media (min-width: 1280px) {
           .banner-slide-wrapper {
             height: var(--h-desktop);
           }
         }
 
-        /* MAIN IMAGE BEHAVIOR */
         .banner-img {
           object-fit: cover;
         }
 
-        /* Very small height screens (landscape phones) */
         @media (max-height: 550px) {
           .banner-slide-wrapper {
             height: 65vh;
@@ -152,4 +171,3 @@ const Banner = () => {
 };
 
 export default Banner;
-

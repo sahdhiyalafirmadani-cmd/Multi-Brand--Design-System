@@ -1,75 +1,75 @@
-// File: src/components/navigation/HeaderUpper.tsx
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { FaSearch, FaBars } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchOverlay from "../primitives/SearchOverlay";
 import MobileMenu from "./MobileMenu";
 import { useBrand } from "@/theme/use-brand";
 
-
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Achievements", href: "/achievements" },
-  { label: "Events", href: "/events" },
-  { label: "Calendar", href: "/calendar" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Careers", href: "/careers" },
-  { label: "Contact Us", href: "/contact" },
-];
-
 const HeaderUpper = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [logo, setLogo] = useState("");
+  const [navItems, setNavItems] = useState<{ label: string; href: string }[]>([]);
 
   const { colors, typography, spacing } = useBrand();
   const headerColors = colors.headerUpper;
+  const s = spacing.sections.headerUpper;
+
+  // Fetch Google Sheet content
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/sheetData?sheet=headerUpper");
+      const data = await res.json();
+      if (!Array.isArray(data)) return;
+
+      const get = (name: string) => data.find((i: any) => i.componentName === name)?.value || "";
+
+      setLogo(get("Header_Logo"));
+
+      const itemsRaw = get("Header_NavItems");
+      const itemsArray = itemsRaw
+        ? itemsRaw.split(";").map((i: string) => {
+            const [label, href] = i.split(",");
+            return { label: label.trim(), href: href.trim() };
+          })
+        : [];
+      setNavItems(itemsArray);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
       <SearchOverlay open={searchOpen} setOpen={setSearchOpen} />
 
       <div
-        className="sticky top-0 z-50 shadow-md"
-        style={{
-          backgroundColor: headerColors.bg,
-          color: headerColors.text,
-          fontFamily: typography.heading,
-        }}
+        className={`sticky top-0 z-50 shadow-md ${s.wrapper}`}
+        style={{ backgroundColor: headerColors.bg, color: headerColors.text, fontFamily: typography.heading }}
       >
-        <div
-          className={`max-w-7xl mx-auto ${spacing.paddingX[4]} ${spacing.paddingY[3]} flex justify-between items-center`}
-        >
+        <div className={`mx-auto flex justify-between items-center ${s.container}`}>
           {/* Logo */}
-          <div className="flex items-center">
-            <Link href="/">
-              <Image
-                src="/assets/images/school logo.png"
-                alt="School Logo"
-                width={95}
-                height={95}
-                className="object-contain"
-              />
-            </Link>
+          <div className={s.logoWrapper}>
+            {logo && (
+              <Link href="/">
+                <Image src={logo} alt="School Logo" width={s.logoWidth} height={s.logoHeight} className="object-contain" />
+              </Link>
+            )}
           </div>
 
           {/* Desktop Nav */}
-          <nav className={`hidden md:flex gap-8 font-medium text-[18px]`}>
+          <nav className={`${s.navDesktop}`}>
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
+                className={`${s.navItem} transition-colors`}
                 style={{ color: headerColors.text }}
-                className="transition-colors hover:underline"
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = headerColors.textHover)
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = headerColors.text)
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.color = headerColors.textHover)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = headerColors.text)}
               >
                 {item.label}
               </Link>
@@ -77,14 +77,11 @@ const HeaderUpper = () => {
           </nav>
 
           {/* Search & Mobile */}
-          <div className={`flex items-center ${spacing.gap[4]}`}>
+          <div className={`${s.rightControls}`}>
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-3 rounded-full transition"
-              style={{
-                backgroundColor: headerColors.searchBg,
-                color: headerColors.searchIcon,
-              }}
+              className={`${s.searchButton} rounded-full transition`}
+              style={{ backgroundColor: headerColors.searchBg, color: headerColors.searchIcon }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = headerColors.searchHoverBg;
                 e.currentTarget.style.color = headerColors.searchIconHover;
@@ -94,14 +91,10 @@ const HeaderUpper = () => {
                 e.currentTarget.style.color = headerColors.searchIcon;
               }}
             >
-              <FaSearch size={17} />
+              <FaSearch size={s.searchIconSize} />
             </button>
 
-            <button
-              onClick={() => setMobileOpen(true)}
-              className="md:hidden p-3 text-2xl"
-              style={{ color: headerColors.text }}
-            >
+            <button onClick={() => setMobileOpen(true)} className={s.mobileButton} style={{ color: headerColors.text }}>
               <FaBars />
             </button>
           </div>

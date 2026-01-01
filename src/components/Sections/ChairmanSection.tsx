@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useBrand } from "@/theme/use-brand";
@@ -7,65 +8,96 @@ import Button from "../primitives/Button/Button";
 
 export default function ChairmanSection() {
   const router = useRouter();
-  const { colors, spacing } = useBrand();
-  const chairmanColors = colors.chairmanSection;
-  const chairmanSpacing = spacing.sections.chairman;
+  const { spacing, colors } = useBrand();
+  const s = spacing.sections.chairman;
+  const c = colors.chairmanSection;
+
+  const [data, setData] = useState({
+    heading: "",
+    paragraph: "",
+    image: "",
+    alt: "",
+    buttonText: "",
+    buttonLink: "",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=homePage");
+        const sheetData = await res.json();
+        if (!Array.isArray(sheetData)) return;
+
+        const get = (name: string) =>
+          sheetData.find((i: any) => i.componentName === name)?.value || "";
+
+        setData({
+          heading: get("Chairman_Heading"),
+          paragraph: get("Chairman_Paragraph"),
+          image: get("Chairman_Image"),
+          alt: get("Chairman_Alt"),
+          buttonText: get("Chairman_ButtonText"),
+          buttonLink: get("Chairman_ButtonLink"),
+        });
+      } catch (error) {
+        console.error("Error fetching Chairman data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data.heading) return null;
 
   return (
     <section
-      className={`${chairmanSpacing.sectionPaddingMobile} md:${chairmanSpacing.sectionPaddingDesktop}`}
-      style={{ backgroundColor: chairmanColors.bg }}
+      className={`${s.sectionPaddingMobile} md:${s.sectionPaddingDesktop}`}
+      style={{ backgroundColor: c.bg }}
     >
-      <div className={`max-w-6xl mx-auto grid md:grid-cols-2 ${chairmanSpacing.containerGap} items-center`}>
+      <div className={`${s.containerFlex} ${s.containerGap} max-w-6xl mx-auto`}>
 
         {/* LEFT TEXT */}
         <div>
-          <h2
-            className={`${chairmanSpacing.headingSizeMobile} ${chairmanSpacing.headingSizeDesktop} ${chairmanSpacing.headingWeight} ${chairmanSpacing.headingMarginBottom}`}
-            style={{ color: chairmanColors.heading }}
-          >
-            MESSAGE FROM OUR CHAIRMAN
-          </h2>
+          {data.heading && (
+            <h2
+              className={`${s.headingSizeMobile} ${s.headingSizeDesktop} ${s.headingWeight} ${s.headingMarginBottom}`}
+              style={{ color: c.heading }}
+            >
+              {data.heading}
+            </h2>
+          )}
 
-          <p
-            className={`${chairmanSpacing.paragraphLineHeight} ${chairmanSpacing.paragraphMarginBottom} text-justify`}
-            style={{ color: chairmanColors.text }}
-          >
-            In the name of Allah the Most Beneficent the Most Merciful.
-            <br /><br />
-            It is with immense pleasure and gratitude that I welcome you to the
-            official website of Alif International School.
-            <br /><br />
-            Alif International School is a project of the Alif Education
-            Foundation. The mission of the Foundation in establishing an
-            international school is to provide a modern English medium
-            education of high standard at an affordable cost.
-            <br /><br />
-            From its inception, Alif has been striving to maintain the highest
-            educational standards whilst imparting the right values as well as
-            equipping the students with the necessary skills to face the
-            challenges of the modern world with courage and fortitude.
-          </p>
-
-          <div className={chairmanSpacing.buttonGap}>
-            <Button
-              text="READ MORE"
-              colors={chairmanColors}
-              onClick={() => router.push("/chairman")}
+          {data.paragraph && (
+            <p
+              className={`${s.paragraphLineHeight} ${s.paragraphMarginBottom} text-justify`}
+              style={{ color: c.text }}
+              dangerouslySetInnerHTML={{ __html: data.paragraph }}
             />
-          </div>
+          )}
+
+          {data.buttonText && data.buttonLink && (
+            <div className={s.buttonGap}>
+              <Button
+                text={data.buttonText}
+                colors={c}
+                onClick={() => router.push(data.buttonLink)}
+              />
+            </div>
+          )}
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="flex justify-center">
-          <Image
-            src="/assets/images/chairman.jpeg"
-            alt="Chairman"
-            width={chairmanSpacing.imageWidth}
-            height={chairmanSpacing.imageHeight}
-            className="rounded-lg shadow-lg object-cover"
-          />
-        </div>
+        {data.image && (
+          <div className={s.imageWrapper}>
+            <Image
+              src={data.image}
+              alt={data.alt}
+              width={s.imageWidth}
+              height={s.imageHeight}
+              className={s.imageStyle}
+            />
+          </div>
+        )}
 
       </div>
     </section>

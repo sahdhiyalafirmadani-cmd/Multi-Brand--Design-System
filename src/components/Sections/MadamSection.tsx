@@ -1,53 +1,97 @@
 "use client";
 
-import React from "react";
-import Button from "../primitives/Button/Button";
+import { useEffect, useState } from "react";
 import { useBrand } from "@/theme/use-brand";
+import Button from "../primitives/Button/Button";
 
 const MadamSection = () => {
-  const { colors } = useBrand();
-  const madamColors = colors.messageFromMadam;
+  const { spacing, colors } = useBrand();
+  const s = spacing.sections.messageFromMadam;
+  const c = colors.messageFromMadam;
+
+  const [data, setData] = useState({
+    heading: "",
+    paragraph: "",
+    image: "",
+    alt: "",
+    buttonText: "",
+    buttonLink: "",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=homePage");
+        const sheetData = await res.json();
+        if (!Array.isArray(sheetData)) return;
+
+        const get = (name: string) =>
+          sheetData.find((i: any) => i.componentName === name)?.value || "";
+
+        setData({
+          heading: get("Madam_Heading"),
+          paragraph: get("Madam_Paragraph"),
+          image: get("Madam_Image"),
+          alt: get("Madam_Alt"),
+          buttonText: get("Madam_ButtonText"),
+          buttonLink: get("Madam_ButtonLink"),
+        });
+      } catch (error) {
+        console.error("Error fetching MadamSection data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data.heading) return null;
 
   return (
-    <section className="py-12" style={{ backgroundColor: madamColors.bg }}>
-      <div className="container mx-auto flex flex-col md:flex-row items-center gap-8 px-4">
+    <section
+      className={`${s.sectionPaddingMobile} md:${s.sectionPaddingDesktop}`}
+      style={{ backgroundColor: c.bg }}
+    >
+      <div className={`container mx-auto flex flex-col md:flex-row items-center ${s.containerGap} px-4`}>
+
         {/* Madam Image */}
-        <div className="w-full md:w-1/3 flex justify-center">
-          <img
-            src="/assets/images/madam.png"
-            alt="Madam Principal"
-            className="rounded-lg shadow-lg max-w-full h-auto transform transition-transform duration-300 hover:scale-105 active:scale-110"
-          />
-        </div>
-
-        {/* Text Content */}
-        <div className="w-full md:w-2/3 text-center md:text-left">
-          <h2
-            className="text-3xl font-bold mb-4"
-            style={{ color: madamColors.heading }}
-          >
-            MESSAGE FROM OUR MADAM PRINCIPAL
-          </h2>
-
-          <p
-            className="text-base md:text-lg leading-relaxed mb-6 text-justify"
-            style={{ color: madamColors.text }}
-          >
-            Dear Students, Parents, Past Pupils and Well wishers,
-            <br /><br />
-            It gives me great pleasure to welcome you all to the Alif International School and Montessori website.
-            <br /><br />
-            “Knowledge, Discipline through Perseverance.” Just as the above Motto indicates, the ability to persist in the face of adversity and to continue working towards a goal despite obstacles and setbacks, our school provides opportunities and allows individuals to overcome challenges to achieve their goals and to make progress in their personal and professional lives. We believe in giving our students strong values with a set of wings which may carry them far and wide. The activities of the school provide holistic grooming so that they are able to explore their own potential.
-          </p>
-
-          <div className="flex justify-center md:justify-start">
-            <Button
-              text="READ MORE"
-              onClick={() => (window.location.href = "/madam")}
-              colors={madamColors}
-              className="w-40 md:w-48"
+        {data.image && (
+          <div className={`${s.imageWidthMobile} ${s.imageWidthDesktop} flex justify-center ${s.imageHeightMobile} md:${s.imageHeightDesktop}`}>
+            <img
+              src={data.image}
+              alt={data.alt}
+              className="rounded-lg shadow-lg max-w-full h-auto transform transition-transform duration-300 hover:scale-105 active:scale-110"
             />
           </div>
+        )}
+
+        {/* Text Content */}
+        <div className={`${s.textWidthMobile} ${s.textWidthDesktop} text-center md:text-left flex flex-col justify-center`}>
+          {data.heading && (
+            <h2
+              className={`${s.headingSizeMobile} ${s.headingSizeDesktop} ${s.headingWeight} ${s.headingMarginBottom}`}
+              style={{ color: c.heading }}
+              dangerouslySetInnerHTML={{ __html: data.heading }}
+            />
+          )}
+
+          {data.paragraph && (
+            <p
+              className={`${s.paragraphSizeMobile} ${s.paragraphSizeDesktop} ${s.paragraphLineHeight} ${s.paragraphMarginBottom} text-justify`}
+              style={{ color: c.text }}
+              dangerouslySetInnerHTML={{ __html: data.paragraph }}
+            />
+          )}
+
+          {data.buttonText && data.buttonLink && (
+            <div className={s.buttonAlign}>
+              <Button
+                text={data.buttonText}
+                colors={c}
+                onClick={() => (window.location.href = data.buttonLink)}
+                className={`${s.buttonWidthMobile} ${s.buttonWidthDesktop}`}
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

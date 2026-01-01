@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import Image from "next/image";
@@ -10,13 +10,52 @@ import { useBrand } from "@/theme/use-brand";
 interface MobileMenuProps {
   open: boolean;
   setOpen: (value: boolean) => void;
-  navItems: { label: string; href: string }[];
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, navItems }) => {
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen }) => {
   const { colors, typography, spacing } = useBrand();
   const menuColors = colors.mobileMenu;
 
+  const [logo, setLogo] = useState("");
+  const [navItems, setNavItems] = useState<NavItem[]>([]);
+
+  /* ================= FETCH FROM GOOGLE SHEET ================= */
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/sheetData?sheet=headerUpper");
+      const data = await res.json();
+      if (!Array.isArray(data)) return;
+
+      const getValue = (name: string) =>
+        data.find((i: any) => i.componentName === name)?.value || "";
+
+      // Logo
+      setLogo(getValue("Header_Logo"));
+
+      // Nav items
+      const rawItems = getValue("Header_NavItems");
+      const parsedItems = rawItems
+        ? rawItems.split(";").map((item: string) => {
+            const [label, href] = item.split(",");
+            return {
+              label: label.trim(),
+              href: href.trim(),
+            };
+          })
+        : [];
+
+      setNavItems(parsedItems);
+    };
+
+    fetchData();
+  }, []);
+
+  /* ================= LOCK SCROLL ================= */
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -57,22 +96,25 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, navItems }) => {
               className={`flex items-center justify-between ${spacing.paddingY[3]} ${spacing.paddingX[4]} border-b`}
               style={{ borderColor: colors.headerUpper.bg }}
             >
-              <Link href="/" onClick={() => setOpen(false)}>
-                <Image
-                  src="/assets/images/school logo.png"
-                  alt="School Logo"
-                  width={120}
-                  height={50}
-                  className="object-contain"
-                />
-              </Link>
+              {logo && (
+                <Link href="/" onClick={() => setOpen(false)}>
+                  <Image
+                    src={logo}
+                    alt="School Logo"
+                    width={120}
+                    height={50}
+                    className="object-contain"
+                  />
+                </Link>
+              )}
 
               <button
                 onClick={() => setOpen(false)}
                 className="text-2xl p-2 rounded transition"
                 style={{ color: menuColors.text }}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = menuColors.closeHoverBg)
+                  (e.currentTarget.style.backgroundColor =
+                    menuColors.closeHoverBg)
                 }
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "transparent")
@@ -83,7 +125,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, navItems }) => {
             </div>
 
             {/* Menu Items */}
-            <nav className={`flex flex-col ${spacing.paddingY[3]} ${spacing.paddingX[4]} ${spacing.gap[4]}`}>
+            <nav
+              className={`flex flex-col ${spacing.paddingY[3]} ${spacing.paddingX[4]} ${spacing.gap[4]}`}
+            >
               {navItems.map((item) => (
                 <Link
                   key={item.label}

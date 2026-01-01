@@ -1,36 +1,71 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
 import { useBrand } from "@/theme/use-brand";
 import Link from "next/link";
 import Button from "../primitives/Button/Button";
 
 const AchievementsSection = () => {
-  const { colors, spacing } = useBrand();
-  const achievementsColors = colors.achievementsSection;
-  const achievementsSpacing = spacing.sections.achievements;
+  const { spacing, colors } = useBrand();
+  const s = spacing.sections.achievements;
+  const c = colors.achievementsSection;
+
+  const [data, setData] = useState({
+    heading: "",
+    buttonText: "",
+    buttonLink: "",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=homePage");
+        const sheetData = await res.json();
+        if (!Array.isArray(sheetData)) return;
+
+        const get = (name: string) =>
+          sheetData.find((i: any) => i.componentName === name)?.value || "";
+
+        setData({
+          heading: get("Achievements_Heading"),
+          buttonText: get("Achievements_ButtonText"),
+          buttonLink: get("Achievements_ButtonLink"),
+        });
+      } catch (error) {
+        console.error("Error fetching AchievementsSection data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data.heading) return null;
 
   return (
     <section
-      className={`${achievementsSpacing.sectionPaddingMobile} md:${achievementsSpacing.sectionPaddingDesktop} flex flex-col items-center justify-center`}
-      style={{ backgroundColor: achievementsColors.bg }}
+      className={`${s.sectionPaddingMobile} md:${s.sectionPaddingDesktop} ${s.containerFlex}`}
+      style={{ backgroundColor: c.bg }}
     >
       {/* Heading */}
-      <h2
-        className={`${achievementsSpacing.headingSizeMobile} ${achievementsSpacing.headingSizeDesktop} ${achievementsSpacing.headingWeight} ${achievementsSpacing.headingMarginBottom} ${achievementsSpacing.headingTextAlign}`}
-        style={{ color: achievementsColors.heading }}
-      >
-        OUR SCHOOL ACHIEVEMENTS
-      </h2>
+      {data.heading && (
+        <h2
+          className={`${s.headingSizeMobile} ${s.headingSizeDesktop} ${s.headingWeight} ${s.headingMarginBottom} ${s.headingTextAlign}`}
+          style={{ color: c.heading }}
+        >
+          {data.heading}
+        </h2>
+      )}
 
       {/* Button */}
-      <Link href="/achievements">
-        <Button
-          text="EXPLORE"
-          colors={achievementsColors}
-          className={`${achievementsSpacing.buttonWidthMobile} ${achievementsSpacing.buttonWidthDesktop}`}
-        />
-      </Link>
+      {data.buttonText && data.buttonLink && (
+        <Link href={data.buttonLink}>
+          <Button
+            text={data.buttonText}
+            colors={c}
+            className={`${s.buttonWidthMobile} ${s.buttonWidthDesktop}`}
+          />
+        </Link>
+      )}
     </section>
   );
 };

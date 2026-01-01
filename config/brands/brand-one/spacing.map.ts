@@ -45,6 +45,20 @@ export const brandOneSpacing = {
   
 
   sections: {
+
+    headerUpper: {
+  wrapper: "w-full",
+  container: "max-w-7xl px-4 md:px-6 py-3 flex justify-between items-center",
+  logoWrapper: "flex items-center",
+  logoWidth: 95,
+  logoHeight: 95,
+  navDesktop: "hidden md:flex gap-8 font-medium text-[18px]",
+  navItem: "cursor-pointer hover:underline",
+  rightControls: "flex items-center gap-4",
+  searchButton: "p-3",
+  searchIconSize: 17,
+  mobileButton: "md:hidden p-3 text-2xl",
+},
     // BANNER SPACING
       banner: {
       heightMobile: "280px",     
@@ -58,64 +72,74 @@ export const brandOneSpacing = {
     },
 
     // ABOUT SECTION SPACING
-about: {
-  // Section padding
-  sectionPaddingMobile: "py-10 px-4",
-  sectionPaddingDesktop: "py-20 md:px-10",
+    about: {
+      // Section padding
+      sectionPaddingMobile: "py-10 px-4",
+      sectionPaddingDesktop: "py-20 md:px-10",
 
-  // Max width for the container
-  containerMaxWidth: "max-w-7xl",
+      // Container
+      containerMaxWidth: "max-w-7xl mx-auto",
+      containerFlex: "flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16",
 
-  // Gap between image and text
-  containerGap: "gap-8 md:gap-16",
+      // Left image
+      imageWrapper: "flex justify-center w-full md:w-1/2 flex-shrink-0",
+      imageStyle: "w-full h-64 md:h-[420px] rounded-lg shadow-lg object-cover",
 
-  // Image — left side
-  imageWidthMobile: "w-full",
-  imageWidthDesktop: "md:w-1/2",
-  imageHeightMobile: "h-64",
-  imageHeightDesktop: "md:h-[420px]",
+      // Right text
+      textWrapper: "flex flex-col justify-center w-full md:w-1/2",
 
-  // Text container — right side
-  textContainerWidthMobile: "w-full",
-  textContainerWidthDesktop: "md:w-1/2",
+      // Heading
+      headingSizeMobile: "text-2xl",
+      headingSizeDesktop: "md:text-3xl",
+      headingWeight: "font-semibold",
+      headingMarginBottom: "mb-4",
 
-  // Heading
-  headingSizeMobile: "text-2xl",
-  headingSizeDesktop: "md:text-3xl",
-  headingWeight: "font-semibold",
-  headingMarginBottom: "mb-4",
+      // Paragraph
+      paragraphSizeMobile: "text-base",
+      paragraphSizeDesktop: "md:text-sm",
+      paragraphMarginBottom: "mb-6",
+      paragraphLineHeight: "leading-relaxed",
 
-  // Paragraph
-  paragraphSizeMobile: "text-base",
-  paragraphSizeDesktop: "md:text-sm",
-  paragraphMarginBottom: "mb-6",
-  paragraphLineHeight: "leading-relaxed",
-
-  // Button
-  buttonGap: "gap-4",
-},
+      // Button
+      buttonGap: "gap-4",
+    },
 
 
 
-       chairman: {
+           chairman: {
+      // Section padding
       sectionPaddingMobile: "py-16 px-6",
       sectionPaddingDesktop: "md:py-20 md:px-10",
+
+      // Container layout
+      containerFlex: "grid md:grid-cols-2 items-center",
       containerGap: "gap-12",
+
+      // Heading
       headingSizeMobile: "text-3xl",
       headingSizeDesktop: "md:text-4xl",
       headingWeight: "font-bold",
       headingMarginBottom: "mb-6",
+
+      // Paragraph
       paragraphLineHeight: "leading-7",
       paragraphMarginBottom: "mb-8",
-       imageWidth: 450,
+
+      // Image
+      imageWrapper: "flex justify-center",
+      imageStyle: "rounded-lg shadow-lg object-cover",
+      imageWidth: 450,
       imageHeight: 500,
+
+      // Button
       buttonGap: "mt-0",
     },
-
-    achievements: {
+        achievements: {
+      // Section padding
       sectionPaddingMobile: "py-10",
-      sectionPaddingDesktop: "py-10", 
-      containerGap: "gap-8",
+      sectionPaddingDesktop: "md:py-10",
+
+      containerFlex: "flex flex-col items-center justify-center gap-8",
 
       // Heading
       headingSizeMobile: "text-3xl",
@@ -211,25 +235,38 @@ messageFromMadam: {
   buttonAlign: "flex justify-center md:justify-start",
 },
 
-   footerSection: {
-      topSectionPadding: "py-12 px-6 md:px-12",
-      bottomSectionPadding: "py-5",
-      container: "container mx-auto",
-      sectionGap: "gap-10",
-      socialIconsGap: "flex gap-3 pt-2",
-      linksGap: "space-y-3",
-      logoSize: "w-28 h-auto",
-      headingSize: "text-xl",
-      headingWeight: "font-bold",
-      linksHeadingSize: "text-lg sm:text-xl",
-      linksHeadingWeight: "font-semibold",
-      linksAlign: "text-center md:text-left",
-      bottomTextSize: "text-sm",
-      bottomTextAlign: "text-center",
-      iconSize: "text-lg",
-      messageHeadingSize: "text-lg sm:text-xl",
-      messageHeadingWeight: "font-semibold",
-    },
+  footerSection: {
+  // Paddings
+  topSectionPadding: "py-12 px-6 md:px-12",
+  bottomSectionPadding: "py-5",
+
+  // Container
+  container: "mx-auto max-w-7xl",
+  sectionGap: "gap-10",
+
+  // Logo
+  logoSize: "w-28 h-auto",
+
+  // Headings
+  headingSize: "text-xl",
+  headingWeight: "font-bold",
+  linksHeadingSize: "text-lg sm:text-xl",
+  linksHeadingWeight: "font-semibold",
+  linksAlign: "text-center md:text-left",
+  bottomTextSize: "text-sm",
+  bottomTextAlign: "text-center",
+  messageHeadingSize: "text-lg sm:text-xl",
+  messageHeadingWeight: "font-semibold",
+
+  // Social icons
+  socialIconsGap: "flex gap-3 pt-2",
+  iconSize: "text-lg",
+
+  // Links
+  linksGap: "space-y-3",
+
+  // Button / link hover gaps are handled via colors from color map
+},
 
 
     //ABOUT PAGE 

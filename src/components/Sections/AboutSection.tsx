@@ -1,75 +1,101 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useBrand } from "@/theme/use-brand";
 import Button from "../primitives/Button/Button";
 
 const AboutSection = () => {
-  const { colors, spacing } = useBrand();
-  const aboutColors = colors.aboutSection;
-  const aboutSpacing = spacing.sections.about;
+  const { spacing, colors } = useBrand();
+  const s = spacing.sections.about;
+  const c = colors.aboutSection;
+
+  const [data, setData] = useState({
+    heading: "",
+    paragraph: "",
+    image: "",
+    alt: "",
+    buttonText: "",
+    buttonLink: "",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=homePage");
+        const sheetData = await res.json();
+        if (!Array.isArray(sheetData)) return;
+
+        const get = (name: string) =>
+          sheetData.find((i: any) => i.componentName === name)?.value || "";
+
+        setData({
+          heading: get("AboutSection_Heading"),
+          paragraph: get("AboutSection_Paragraph"),
+          image: get("AboutSection_Image"),
+          alt: get("AboutSection_Alt"),
+          buttonText: get("AboutSection_ButtonText"),
+          buttonLink: get("AboutSection_ButtonLink"),
+        });
+      } catch (error) {
+        console.error("Error fetching AboutSection data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!data.heading) return null;
 
   return (
     <section
-      className={`${aboutSpacing.sectionPaddingMobile} md:${aboutSpacing.sectionPaddingDesktop}`}
-      style={{ backgroundColor: aboutColors.bg }}
+      className={`${s.sectionPaddingMobile} md:${s.sectionPaddingDesktop}`}
+      style={{ backgroundColor: c.bg }}
     >
-      <div
-        className={`${aboutSpacing.containerMaxWidth} mx-auto flex flex-col md:flex-row items-start md:items-center ${aboutSpacing.containerGap}`}
-      >
+      <div className={`${s.containerMaxWidth} ${s.containerFlex}`}>
+
         {/* LEFT IMAGE */}
-        <div
-          className={`flex justify-center w-full ${aboutSpacing.imageWidthDesktop} flex-shrink-0`}
-        >
-          <Image
-            src="/assets/images/sch_pic.png"
-            alt="School"
-            width={500} // adjust as needed
-            height={420}
-            className="rounded-lg shadow-lg object-cover"
-            priority
-          />
-        </div>
-
-        {/* RIGHT TEXT */}
-        <div
-          className={`flex flex-col justify-center w-full ${aboutSpacing.textContainerWidthDesktop}`}
-        >
-          <h2
-            className={`${aboutSpacing.headingSizeMobile} md:${aboutSpacing.headingSizeDesktop} ${aboutSpacing.headingWeight} ${aboutSpacing.headingMarginBottom}`}
-            style={{ color: aboutColors.heading }}
-          >
-            Join us where we make excellence
-            <br />
-            <b>EDUCATION MEETS EXCELLENCE</b>
-          </h2>
-
-          <p
-            className={`${aboutSpacing.paragraphSizeMobile} md:${aboutSpacing.paragraphSizeDesktop} ${aboutSpacing.paragraphLineHeight} ${aboutSpacing.paragraphMarginBottom} text-justify`}
-            style={{ color: aboutColors.text }}
-          >
-            Alif International School is a well-known educational institution
-            that has been providing quality education to students in its locality
-            for several years. The school is committed to fostering academic
-            excellence, character development, and personal growth in its
-            students. One of the school's main achievements is its dedication to
-            maintain a high standard education. Alif International School offers
-            a rigorous and comprehensive curriculum that is designed to challenge
-            students and prepare them for success in their future academic and
-            professional pursuits. The school also provides a variety of
-            extra-curricular activities that allow students to explore their
-            interests and develop their skill in areas such as academics, sports,
-            and arts.
-          </p>
-
-          <div className={aboutSpacing.buttonGap}>
-            <Link href="/about">
-              <Button text="LEARN MORE" colors={aboutColors} />
-            </Link>
+        {data.image && (
+          <div className={s.imageWrapper}>
+            <Image
+              src={data.image}
+              alt={data.alt}
+              width={500}
+              height={420}
+              className={s.imageStyle}
+              priority
+            />
           </div>
+        )}
+
+        {/* RIGHT CONTENT */}
+        <div className={s.textWrapper}>
+          {data.heading && (
+            <h2
+              className={`${s.headingSizeMobile} ${s.headingSizeDesktop} ${s.headingWeight} ${s.headingMarginBottom}`}
+              style={{ color: c.heading }}
+              dangerouslySetInnerHTML={{ __html: data.heading }}
+            />
+          )}
+
+          {data.paragraph && (
+            <p
+              className={`${s.paragraphSizeMobile} ${s.paragraphSizeDesktop} ${s.paragraphLineHeight} ${s.paragraphMarginBottom} text-justify`}
+              style={{ color: c.text }}
+              dangerouslySetInnerHTML={{ __html: data.paragraph }}
+            />
+          )}
+
+          {data.buttonText && data.buttonLink && (
+            <div className={s.buttonGap}>
+              <Link href={data.buttonLink}>
+                <Button text={data.buttonText} colors={c} />
+              </Link>
+            </div>
+          )}
         </div>
+
       </div>
     </section>
   );
