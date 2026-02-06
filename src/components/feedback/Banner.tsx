@@ -66,6 +66,19 @@ const Banner = () => {
   if (!bannerColors || !bannerSpacing || images.length === 0) {
     return null;
   }
+  /*if (!bannerColors || !bannerSpacing || images.length === 0) {
+  return (
+    <div
+      className="w-full flex items-center justify-center"
+      style={{
+        height: bannerSpacing?.heightMobile || "200px",
+        backgroundColor: bannerColors?.bg || "#f5f5f5",
+      }}
+    >
+      <p style={{ opacity: 0.6 }}>Loading banner...</p>
+    </div>
+  );
+}*/
 
   const slides = [...images, images[0]];
 

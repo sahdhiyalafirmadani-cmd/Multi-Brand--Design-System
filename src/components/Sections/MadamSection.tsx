@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { useBrand } from "@/theme/use-brand";
 import Button from "../primitives/Button/Button";
 
@@ -8,6 +9,9 @@ const MadamSection = () => {
   const { spacing, colors } = useBrand();
   const s = spacing.sections.messageFromMadam;
   const c = colors.messageFromMadam;
+
+  const params = useParams();
+  const brand = params?.brand || "alif"; // fallback brand
 
   const [data, setData] = useState({
     heading: "",
@@ -87,7 +91,7 @@ const MadamSection = () => {
               <Button
                 text={data.buttonText}
                 colors={c}
-                onClick={() => (window.location.href = data.buttonLink)}
+                onClick={() => (window.location.href = `/${brand}${data.buttonLink}`)}
                 className={`${s.buttonWidthMobile} ${s.buttonWidthDesktop}`}
               />
             </div>

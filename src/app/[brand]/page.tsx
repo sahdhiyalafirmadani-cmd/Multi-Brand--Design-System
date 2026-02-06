@@ -1,4 +1,4 @@
-/*import HeaderTop from "@/components/navigation/HeaderTop";
+import HeaderTop from "@/components/navigation/HeaderTop";
 import HeaderUpper from "@/components/navigation/HeaderUpper";
 import Banner from "@/components/feedback/Banner";
 import AboutSection from "@/components/Sections/AboutSection";
@@ -24,10 +24,4 @@ export default function HomePage() {
       <Footer />
     </>
   );
-}*/
-
-import { redirect } from "next/navigation";
-
-export default function Page() {
-  redirect("/alif");
 }

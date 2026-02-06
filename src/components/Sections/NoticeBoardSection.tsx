@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import Button from "../primitives/Button/Button";
 import { useBrand } from "@/theme/use-brand";
 
@@ -11,6 +12,9 @@ interface NoticeBoardRow {
 }
 
 const NoticeBoardSection = () => {
+  const params = useParams();
+  const brand = params?.brand || "alif"; // fallback brand
+
   const [rows, setRows] = useState<NoticeBoardRow[]>([]);
   const { colors, spacing } = useBrand();
   const noticeColors = colors.noticeBoardSection;
@@ -93,7 +97,7 @@ const NoticeBoardSection = () => {
       <div className="flex justify-center">
         <Button
           text="VIEW ALL"
-          onClick={() => (window.location.href = "/calendar")}
+          onClick={() => (window.location.href = `/${brand}/calendar`)}
           colors={noticeColors}
           className={`${noticeSpacing.buttonWidthMobile} ${noticeSpacing.buttonWidthDesktop}`}
         />

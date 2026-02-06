@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useBrand } from "@/theme/use-brand";
 import Button from "../primitives/Button/Button";
 
@@ -10,6 +11,9 @@ const AboutSection = () => {
   const { spacing, colors } = useBrand();
   const s = spacing.sections.about;
   const c = colors.aboutSection;
+
+  const params = useParams();
+  const brand = params?.brand || "alif"; // fallback brand
 
   const [data, setData] = useState({
     heading: "",
@@ -89,7 +93,7 @@ const AboutSection = () => {
 
           {data.buttonText && data.buttonLink && (
             <div className={s.buttonGap}>
-              <Link href={data.buttonLink}>
+              <Link href={`/${brand}${data.buttonLink}`}>
                 <Button text={data.buttonText} colors={c} />
               </Link>
             </div>

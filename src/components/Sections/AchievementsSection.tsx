@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { useBrand } from "@/theme/use-brand";
 import Link from "next/link";
 import Button from "../primitives/Button/Button";
@@ -9,6 +10,9 @@ const AchievementsSection = () => {
   const { spacing, colors } = useBrand();
   const s = spacing.sections.achievements;
   const c = colors.achievementsSection;
+
+  const params = useParams();
+  const brand = params?.brand || "alif"; // fallback brand
 
   const [data, setData] = useState({
     heading: "",
@@ -58,7 +62,7 @@ const AchievementsSection = () => {
 
       {/* Button */}
       {data.buttonText && data.buttonLink && (
-        <Link href={data.buttonLink}>
+        <Link href={`/${brand}${data.buttonLink}`}>
           <Button
             text={data.buttonText}
             colors={c}

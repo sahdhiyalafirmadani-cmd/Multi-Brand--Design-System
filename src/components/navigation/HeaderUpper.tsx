@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import SearchOverlay from "../primitives/SearchOverlay";
 import MobileMenu from "./MobileMenu";
 import { useBrand } from "@/theme/use-brand";
@@ -17,6 +18,9 @@ const HeaderUpper = () => {
   const { colors, typography, spacing } = useBrand();
   const headerColors = colors.headerUpper;
   const s = spacing.sections.headerUpper;
+
+  const params = useParams();
+  const brand = params?.brand || "alif"; // fallback brand if missing
 
   // Fetch Google Sheet content
   useEffect(() => {
@@ -33,14 +37,14 @@ const HeaderUpper = () => {
       const itemsArray = itemsRaw
         ? itemsRaw.split(";").map((i: string) => {
             const [label, href] = i.split(",");
-            return { label: label.trim(), href: href.trim() };
+            return { label: label.trim(), href: `/${brand}${href.trim()}` }; // PREPEND BRAND HERE
           })
         : [];
       setNavItems(itemsArray);
     };
 
     fetchData();
-  }, []);
+  }, [brand]); // rerun if brand changes
 
   return (
     <>
@@ -54,7 +58,7 @@ const HeaderUpper = () => {
           {/* Logo */}
           <div className={s.logoWrapper}>
             {logo && (
-              <Link href="/">
+              <Link href={`/${brand}`}>
                 <Image src={logo} alt="School Logo" width={s.logoWidth} height={s.logoHeight} className="object-contain" />
               </Link>
             )}

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useBrand } from "@/theme/use-brand";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import AboutButton from "@/components/primitives/Button/AboutButton";
 
 const HistoryMontessoriSection = () => {
@@ -11,6 +11,8 @@ const HistoryMontessoriSection = () => {
   const s = spacing.sections.historyMontessoriSection;
   const c = colors.historyMontessoriSection;
   const router = useRouter();
+  const params = useParams();
+  const brand = params?.brand || "alif"; // fallback brand
 
   const [heading, setHeading] = useState("");
   const [paragraph, setParagraph] = useState("");
@@ -84,7 +86,7 @@ const HistoryMontessoriSection = () => {
               text={buttonText}
               className={s.buttonAlign}
               width={s.buttonWidth}
-              onClick={() => router.push(buttonLink)}
+              onClick={() => router.push(`/${brand}${buttonLink}`)}
               colors={{
                 buttonBg: c.buttonBg,
                 buttonText: c.buttonText,

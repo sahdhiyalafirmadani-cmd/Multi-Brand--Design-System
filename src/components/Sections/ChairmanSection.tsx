@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useBrand } from "@/theme/use-brand";
 import Button from "../primitives/Button/Button";
 
 export default function ChairmanSection() {
   const router = useRouter();
+  const params = useParams();
+  const brand = params?.brand || "alif"; // fallback brand
+
   const { spacing, colors } = useBrand();
   const s = spacing.sections.chairman;
   const c = colors.chairmanSection;
@@ -80,7 +83,7 @@ export default function ChairmanSection() {
               <Button
                 text={data.buttonText}
                 colors={c}
-                onClick={() => router.push(data.buttonLink)}
+                onClick={() => router.push(`/${brand}${data.buttonLink}`)}
               />
             </div>
           )}
