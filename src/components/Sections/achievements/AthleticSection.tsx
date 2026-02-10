@@ -9,7 +9,7 @@ type AthleticItem = {
   image: string;
 };
 
-const  AthleticSection = () => {
+const AthleticSection = () => {
   const { spacing, colors } = useBrand();
   const s = spacing.sections.athleticAchievements;
   const c = colors.athleticAchievements;
@@ -21,7 +21,6 @@ const  AthleticSection = () => {
     const fetchData = async () => {
       const res = await fetch("/api/sheetData?sheet=achievementsPage");
       const data = await res.json();
-
       if (!Array.isArray(data)) return;
 
       const main = data.find(
@@ -44,26 +43,34 @@ const  AthleticSection = () => {
 
   return (
     <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
-      <div className="container mx-auto flex flex-col items-center gap-6">
-        {/* Main Heading */}
-       <h1 className={`${s.headingSize} ${s.headingWeight}`} style={{ color: c.heading }}>
-    {mainHeading}
-  </h1>
+      <div className="container mx-auto">
 
-        {/* Items */}
-        {items.map((item, index) => (
-          <div key={index} className={s.itemWrapper}>
-            {/* Heading */}
-            <h2 className={`${s.headingSize} font-semibold`} style={{ color: c.heading }}>
-              {item.heading}
-            </h2>
+        {/* MAIN HEADING */}
+        <h1 className={s.mainHeading} style={{ color: c.heading }}>
+          {mainHeading}
+        </h1>
 
-            {/* Image */}
-            <div className={s.imageWrapper}>
-              <Image src={item.image} alt={item.heading} fill className="object-contain" />
+        {/* ITEMS GRID */}
+        <div className={s.itemsGrid}>
+          {items.map((item, index) => (
+            <div key={index} className={s.itemWrapper}>
+              
+              <h2 className={s.subHeading} style={{ color: c.heading }}>
+                {item.heading}
+              </h2>
+
+              <div className={s.imageWrapper}>
+                <Image
+                  src={item.image}
+                  alt={item.heading}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

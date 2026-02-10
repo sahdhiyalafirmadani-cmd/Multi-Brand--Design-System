@@ -5,10 +5,11 @@ import { useBrand } from "@/theme/use-brand";
 
 const GallerySectionFour = () => {
   const { spacing, colors } = useBrand();
+
+  // IMPORTANT → use same spacing as section one
   const s = spacing.sections.gallerySectionOne;
   const c = colors.gallerySectionOne;
 
- 
   const [subsections, setSubsections] = useState<
     { heading: string; images: string[] }[]
   >([]);
@@ -19,9 +20,6 @@ const GallerySectionFour = () => {
       const data = await res.json();
       if (!Array.isArray(data)) return;
 
-     
-     
-      // field trip Images (SAFE FIX)
       const fieldTripImages = data
         .filter(
           (i: any) =>
@@ -31,7 +29,6 @@ const GallerySectionFour = () => {
         )
         .map((i: any) => i.value);
 
-      // Teachers Day Images (SAFE FIX)
       const teachersDayImages = data
         .filter(
           (i: any) =>
@@ -41,7 +38,6 @@ const GallerySectionFour = () => {
         )
         .map((i: any) => i.value);
 
-         // Community Day Images (SAFE FIX)
       const communityDayImages = data
         .filter(
           (i: any) =>
@@ -51,7 +47,6 @@ const GallerySectionFour = () => {
         )
         .map((i: any) => i.value);
 
-         // Children's Day Images (SAFE FIX)
       const childrensDayImages = data
         .filter(
           (i: any) =>
@@ -64,38 +59,26 @@ const GallerySectionFour = () => {
       setSubsections([
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_FieldTrip_Heading"
-            )?.value || "Field Trip",
+            data.find((i: any) => i.componentName === "Gallery_FieldTrip_Heading")
+              ?.value || "Field Trip",
           images: fieldTripImages,
         },
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_TeachersDay_Heading"
-            )?.value || "Teachers Day",
+            data.find((i: any) => i.componentName === "Gallery_TeachersDay_Heading")
+              ?.value || "Teachers Day",
           images: teachersDayImages,
         },
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_CommunityDay_Heading"
-            )?.value || "Community Day",
+            data.find((i: any) => i.componentName === "Gallery_CommunityDay_Heading")
+              ?.value || "Community Day",
           images: communityDayImages,
         },
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_ChildrensDay_Heading"
-            )?.value || "Children's Day",
+            data.find((i: any) => i.componentName === "Gallery_ChildrensDay_Heading")
+              ?.value || "Children's Day",
           images: childrensDayImages,
         },
       ]);
@@ -106,28 +89,31 @@ const GallerySectionFour = () => {
 
   return (
     <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
-     
-     
+      <div className={s.container}>
+        {subsections.map((sub, idx) => (
+          <div key={idx} className={s.subsectionWrapper}>
+            
+            {/* HEADING */}
+            <h2 className={s.heading} style={{ color: c.heading }}>
+              {sub.heading}
+            </h2>
 
-      {/* Subsections */}
-      {subsections.map((sub, idx) => (
-        <div key={idx} className="mb-8">
-          <h2 className={`${s.headingSize} mb-4`} style={{ color: c.heading }}>
-            {sub.heading}
-          </h2>
+            {/* IMAGE ROW */}
+            <div className={s.galleryWrapper}>
+              {sub.images.map((img, i) => (
+                <div key={i} className={s.imageOuter}>
+                  <img
+                    src={img}
+                    alt={`${sub.heading} ${i + 1}`}
+                    className={s.image}
+                  />
+                </div>
+              ))}
+            </div>
 
-          <div className={s.galleryWrapper}>
-            {sub.images.map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={`${sub.heading} ${i + 1}`}
-                className={s.imageWrapper}
-              />
-            ))}
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 };

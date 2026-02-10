@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useBrand } from "@/theme/use-brand";
 import { FaFacebookF, FaInstagram, FaYoutube, FaXTwitter } from "react-icons/fa6";
+import { useParams } from "next/navigation"; // ⭐ added
+import Link from "next/link"; // ⭐ added
 
 interface FooterData {
   logo: string;
@@ -23,6 +25,9 @@ const Footer: React.FC = () => {
   const { colors, spacing } = useBrand();
   const s = spacing.sections.footerSection;
   const c = colors.footerSection;
+
+  const params = useParams();
+  const brand = params?.brand || "alif"; // ⭐ get brand
 
   const [data, setData] = useState<FooterData | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -80,7 +85,7 @@ const Footer: React.FC = () => {
       <div className={s.topSectionPadding} style={{ backgroundColor: c.bgTop }}>
         <div className={`${s.container} grid grid-cols-1 md:grid-cols-3 ${s.sectionGap}`}>
 
-          {/* LEFT SIDE (Logo + Address) */}
+          {/* LEFT */}
           <div className="flex flex-col gap-3">
             {data.logo && <img src={data.logo} alt="Logo" className={s.logoSize} />}
             <h2 className={`${s.headingSize} ${s.headingWeight}`} style={{ color: c.heading }}>
@@ -89,7 +94,6 @@ const Footer: React.FC = () => {
             <p style={{ color: c.text }}>{data.address}</p>
             <p style={{ color: c.text }}>{data.phone}</p>
 
-            {/* Social Icons */}
             <div className={s.socialIconsGap}>
               {socialIcons.map(({ Icon, url }, i) => (
                 <a
@@ -117,6 +121,7 @@ const Footer: React.FC = () => {
             <h4 className={`${s.linksHeadingSize} ${s.linksHeadingWeight} mb-5`} style={{ color: c.heading }}>
               Links
             </h4>
+
             <ul className={s.linksGap}>
               {data.links.map((link, index) => (
                 <li
@@ -125,30 +130,23 @@ const Footer: React.FC = () => {
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <a
-                    href={link.url}
+                  {/* ⭐ FIXED LINK */}
+                  <Link
+                    href={`/${brand}${link.url}`}
                     className="inline-block transition-all duration-300 group-hover:translate-x-5"
                     style={{
                       color: hoveredIndex === index ? c.linkHover : c.link,
                     }}
                   >
                     {link.text}
-                  </a>
+                  </Link>
+
                   <span
                     className="absolute left-1/2 md:left-0 transform -translate-x-1/2 md:translate-x-0 flex items-center justify-center w-4 h-4 rounded-full opacity-0 
                                group-hover:opacity-100 transition-all duration-300"
                     style={{ backgroundColor: c.linkHover }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-2.5 h-2.5 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-2.5 h-2.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </span>
@@ -157,7 +155,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* RIGHT MESSAGE */}
+          {/* RIGHT */}
           <div>
             <h4 className={`${s.messageHeadingSize} ${s.messageHeadingWeight} mb-5`} style={{ color: c.heading }}>
               {data.inspirationHeading}
@@ -169,18 +167,13 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* ================= BOTTOM SECTION ================ */}
+      {/* BOTTOM */}
       <div className={`${s.bottomSectionPadding} text-center ${s.bottomTextSize}`} style={{ backgroundColor: c.bgBottom }}>
         <hr className="mb-4" style={{ borderColor: c.divider, width: "90%", marginInline: "auto" }} />
         <p style={{ color: c.text }}>
           {data.copyright} |{" "}
-          <span className="cursor-pointer" style={{ color: c.linkHover }}>
-            {data.privacy}
-          </span>{" "}
-          |{" "}
-          <span className="cursor-pointer" style={{ color: c.linkHover }}>
-            {data.terms}
-          </span>
+          <span style={{ color: c.linkHover }}>{data.privacy}</span> |{" "}
+          <span style={{ color: c.linkHover }}>{data.terms}</span>
           <br />
           <span style={{ color: c.linkHover }}>{data.developer}</span>
         </p>

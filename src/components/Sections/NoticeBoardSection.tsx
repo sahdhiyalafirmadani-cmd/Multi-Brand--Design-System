@@ -13,19 +13,33 @@ interface NoticeBoardRow {
 
 const NoticeBoardSection = () => {
   const params = useParams();
-  const brand = params?.brand || "alif"; // fallback brand
+  const brand = params?.brand || "alif";
 
   const [rows, setRows] = useState<NoticeBoardRow[]>([]);
+  const [loading, setLoading] = useState(true); // ⭐ loading state
+
   const { colors, spacing } = useBrand();
   const noticeColors = colors.noticeBoardSection;
   const noticeSpacing = spacing.sections.noticeBoard;
 
   useEffect(() => {
-    fetch("/api/sheetData?sheet=NoticeBoard")
-      .then((res) => res.json())
-      .then((data) => setRows(data))
-      .catch((err) => console.error("Sheet fetch error:", err));
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/sheetData?sheet=NoticeBoard");
+        const data = await res.json();
+        setRows(data);
+      } catch (err) {
+        console.error("Sheet fetch error:", err);
+      } finally {
+        setLoading(false); // ⭐ stop loading
+      }
+    };
+
+    fetchData();
   }, []);
+
+  // ⭐ Wait until data loads (prevents empty table first render)
+  if (loading) return null;
 
   return (
     <section

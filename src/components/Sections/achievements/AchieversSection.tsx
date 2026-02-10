@@ -42,32 +42,37 @@ const AchieversSection = () => {
   }, []);
 
   return (
-    <section
-      className={s.sectionPadding}
-      style={{ backgroundColor: c.bg }}
-    >
+    <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
       <div className="container mx-auto">
+        
+        {/* GRID WRAPPER */}
         <div className={s.wrapper}>
           {achievers.map((item, index) => (
-            <div key={index} className={s.itemWrapper}>
+            <div key={index} className={s.card}>
+              
+              {/* IMAGE */}
               <div className={s.imageWrapper}>
                 <Image
                   src={item.image}
                   alt={item.name}
                   fill
-                  className="object-contain "
+                  className="object-contain"
                 />
               </div>
 
-              <h3 className={s.nameText} style={{ color: c.name }}>
-                {item.name}
-              </h3>
+              {/* TEXT */}
+              <div className="flex flex-col gap-2">
+                <h3 className={s.nameText} style={{ color: c.name }}>
+                  {item.name}
+                </h3>
 
-              <p
-                className={s.descriptionText}
-                style={{ color: c.description }}
-                dangerouslySetInnerHTML={{ __html: item.description }}
-              />
+                <p
+                  className={s.descriptionText}
+                  style={{ color: c.description }}
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                />
+              </div>
+
             </div>
           ))}
         </div>

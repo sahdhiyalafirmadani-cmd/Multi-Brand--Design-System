@@ -5,7 +5,7 @@ import { useBrand } from "@/theme/use-brand";
 
 interface SectionImages {
   heading: string;
-  rows: string[][];
+  images: string[];
 }
 
 const GallerySectionFive = () => {
@@ -23,52 +23,21 @@ const GallerySectionFive = () => {
         if (!Array.isArray(data)) return;
 
         const gallerySections = [
-          {
-            heading: data.find((i: any) => i.componentName === "Gallery_ExtraActivities_Section")?.value || "",
-            rows: data
-              .filter((i: any) => i.componentName === "Gallery_ExtraActivities_Images" && i.value)
-              .map((i: any) =>
-                (i.value as string)
-                  .split("|")
-                  .map((img: string) => img.trim())
-                  .filter(Boolean)
-              )
-          },
-          {
-            heading: data.find((i: any) => i.componentName === "Gallery_ArtsCraft_Section")?.value || "",
-            rows: data
-              .filter((i: any) => i.componentName === "Gallery_ArtsCraft_Images" && i.value)
-              .map((i: any) =>
-                (i.value as string)
-                  .split("|")
-                  .map((img: string) => img.trim())
-                  .filter(Boolean)
-              )
-          },
-          {
-            heading: data.find((i: any) => i.componentName === "Gallery_CharityDay_Section")?.value || "",
-            rows: data
-              .filter((i: any) => i.componentName === "Gallery_CharityDay_Images" && i.value)
-              .map((i: any) =>
-                (i.value as string)
-                  .split("|")
-                  .map((img: string) => img.trim())
-                  .filter(Boolean)
-              )
-          },
-             {
-            heading: data.find((i: any) => i.componentName === "Gallery_AnnualConcert_Section")?.value || "",
-            rows: data
-              .filter((i: any) => i.componentName === "Gallery_AnnualConcert_Images" && i.value)
-              .map((i: any) =>
-                (i.value as string)
-                  .split("|")
-                  .map((img: string) => img.trim())
-                  .filter(Boolean)
-              )
-          },
-            
-        ];
+          { headingKey: "Gallery_ExtraActivities_Section", imagesKey: "Gallery_ExtraActivities_Images" },
+          { headingKey: "Gallery_ArtsCraft_Section", imagesKey: "Gallery_ArtsCraft_Images" },
+          { headingKey: "Gallery_CharityDay_Section", imagesKey: "Gallery_CharityDay_Images" },
+          { headingKey: "Gallery_AnnualConcert_Section", imagesKey: "Gallery_AnnualConcert_Images" },
+        ].map(({ headingKey, imagesKey }) => ({
+          heading: data.find((i: any) => i.componentName === headingKey)?.value || "",
+          images: data
+            .filter((i: any) => i.componentName === imagesKey && i.value)
+            .flatMap((i: any) =>
+              (i.value as string)
+                .split("|")
+                .map((img: string) => img.trim())
+                .filter(Boolean)
+            ),
+        }));
 
         setSections(gallerySections);
       } catch (error) {
@@ -81,32 +50,29 @@ const GallerySectionFive = () => {
 
   return (
     <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
-      {sections.map((section, idx) => (
-        <div key={idx} className="mb-8">
-          {/* Section Heading */}
-          <div className={s.headingWrapper}>
+      <div className={s.container}>
+        {sections.map((section, idx) => (
+          <div key={idx} className={s.sectionWrapper}>
+            {/* Section Heading */}
             <h2 className={s.headingSize} style={{ color: c.heading }}>
               {section.heading}
             </h2>
-          </div>
 
-          {/* Image Rows */}
-          <div className={s.rowsWrapper}>
-            {section.rows.map((row, rowIndex) => (
-              <div key={rowIndex} className={s.scrollRow}>
-                {row.map((img, imgIndex) => (
+            {/* Image Grid */}
+            <div className={s.imageGrid}>
+              {section.images.map((img, imgIndex) => (
+                <div key={imgIndex} className={s.imageOuter}>
                   <img
-                    key={imgIndex}
                     src={img}
-                    alt={`${section.heading} ${rowIndex + 1}-${imgIndex + 1}`}
+                    alt={`${section.heading} ${imgIndex + 1}`}
                     className={s.image}
                   />
-                ))}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 };

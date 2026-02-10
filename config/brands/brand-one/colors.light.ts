@@ -138,7 +138,7 @@ ourValuesSection: {
   sectionBg: "#ffffff",       
   boxBg: "#CBC3E3",           
   heading: "#006400",          
-  text: "#555555",             
+  text: "#444444",             
 },
 
 buildingCommitteeSection: {

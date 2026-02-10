@@ -8,7 +8,6 @@ const GallerySectionOne = () => {
   const s = spacing.sections.gallerySectionOne;
   const c = colors.gallerySectionOne;
 
-  
   const [subsections, setSubsections] = useState<
     { heading: string; images: string[] }[]
   >([]);
@@ -19,9 +18,6 @@ const GallerySectionOne = () => {
       const data = await res.json();
       if (!Array.isArray(data)) return;
 
-      
-
-      // Arabic Day Images (SAFE FIX)
       const arabicDayImages = data
         .filter(
           (i: any) =>
@@ -31,7 +27,6 @@ const GallerySectionOne = () => {
         )
         .map((i: any) => i.value);
 
-      // Ifthar Images (SAFE FIX)
       const iftharImages = data
         .filter(
           (i: any) =>
@@ -44,20 +39,14 @@ const GallerySectionOne = () => {
       setSubsections([
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_ArabicDay_Heading"
-            )?.value || "Arabic Day",
+            data.find((i: any) => i.componentName === "Gallery_ArabicDay_Heading")
+              ?.value || "Arabic Day",
           images: arabicDayImages,
         },
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_Ifthar_Heading"
-            )?.value || "Annual Ifthar",
+            data.find((i: any) => i.componentName === "Gallery_Ifthar_Heading")
+              ?.value || "Annual Ifthar",
           images: iftharImages,
         },
       ]);
@@ -68,28 +57,31 @@ const GallerySectionOne = () => {
 
   return (
     <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
-      
-     
+      <div className={s.container}>
+        {subsections.map((sub, idx) => (
+          <div key={idx} className={s.subsectionWrapper}>
+            
+            {/* HEADING */}
+            <h2 className={s.heading} style={{ color: c.heading }}>
+              {sub.heading}
+            </h2>
 
-      {/* Subsections */}
-      {subsections.map((sub, idx) => (
-        <div key={idx} className="mb-8">
-          <h2 className={`${s.headingSize} mb-4`} style={{ color: c.heading }}>
-            {sub.heading}
-          </h2>
+            {/* IMAGE ROW */}
+            <div className={s.galleryWrapper}>
+              {sub.images.map((img, i) => (
+                <div key={i} className={s.imageOuter}>
+                  <img
+                    src={img}
+                    alt={`${sub.heading} ${i + 1}`}
+                    className={s.image}
+                  />
+                </div>
+              ))}
+            </div>
 
-          <div className={s.galleryWrapper}>
-            {sub.images.map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={`${sub.heading} ${i + 1}`}
-                className={s.imageWrapper}
-              />
-            ))}
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 };

@@ -5,10 +5,11 @@ import { useBrand } from "@/theme/use-brand";
 
 const GallerySectionSix = () => {
   const { spacing, colors } = useBrand();
+
+  // USE SAME SPACING AS OTHER GALLERY SECTIONS
   const s = spacing.sections.gallerySectionOne;
   const c = colors.gallerySectionOne;
 
- 
   const [subsections, setSubsections] = useState<
     { heading: string; images: string[] }[]
   >([]);
@@ -19,9 +20,6 @@ const GallerySectionSix = () => {
       const data = await res.json();
       if (!Array.isArray(data)) return;
 
-     
-     
-      // new year Images (SAFE FIX)
       const newYearImages = data
         .filter(
           (i: any) =>
@@ -31,7 +29,6 @@ const GallerySectionSix = () => {
         )
         .map((i: any) => i.value);
 
-      // Awards Day Images (SAFE FIX)
       const awardsDayImages = data
         .filter(
           (i: any) =>
@@ -41,7 +38,6 @@ const GallerySectionSix = () => {
         )
         .map((i: any) => i.value);
 
-         // Alifian Day Images (SAFE FIX)
       const alifianDayImages = data
         .filter(
           (i: any) =>
@@ -51,38 +47,25 @@ const GallerySectionSix = () => {
         )
         .map((i: any) => i.value);
 
-       
-
       setSubsections([
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_NewYear_Heading"
-            )?.value || "New Year",
+            data.find((i: any) => i.componentName === "Gallery_NewYear_Heading")
+              ?.value || "New Year",
           images: newYearImages,
         },
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_AwardsDay_Heading"
-            )?.value || "Awards Day",
+            data.find((i: any) => i.componentName === "Gallery_AwardsDay_Heading")
+              ?.value || "Awards Day",
           images: awardsDayImages,
         },
         {
           heading:
-            data.find(
-              (i: any) =>
-                typeof i.componentName === "string" &&
-                i.componentName === "Gallery_AlifianDay_Heading"
-            )?.value || "Alifian Day",
+            data.find((i: any) => i.componentName === "Gallery_AlifianDay_Heading")
+              ?.value || "Alifian Day",
           images: alifianDayImages,
         },
-        
-         
       ]);
     };
 
@@ -91,28 +74,31 @@ const GallerySectionSix = () => {
 
   return (
     <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
-     
-     
+      <div className={s.container}>
+        {subsections.map((sub, idx) => (
+          <div key={idx} className={s.subsectionWrapper}>
+            
+            {/* HEADING */}
+            <h2 className={s.heading} style={{ color: c.heading }}>
+              {sub.heading}
+            </h2>
 
-      {/* Subsections */}
-      {subsections.map((sub, idx) => (
-        <div key={idx} className="mb-8">
-          <h2 className={`${s.headingSize} mb-4`} style={{ color: c.heading }}>
-            {sub.heading}
-          </h2>
+            {/* IMAGE ROW */}
+            <div className={s.galleryWrapper}>
+              {sub.images.map((img, i) => (
+                <div key={i} className={s.imageOuter}>
+                  <img
+                    src={img}
+                    alt={`${sub.heading} ${i + 1}`}
+                    className={s.image}
+                  />
+                </div>
+              ))}
+            </div>
 
-          <div className={s.galleryWrapper}>
-            {sub.images.map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={`${sub.heading} ${i + 1}`}
-                className={s.imageWrapper}
-              />
-            ))}
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 };

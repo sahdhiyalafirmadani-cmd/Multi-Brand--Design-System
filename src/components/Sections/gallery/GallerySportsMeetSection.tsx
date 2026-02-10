@@ -9,7 +9,7 @@ const GallerySportsMeetSection = () => {
   const c = colors.gallerySportsMeet;
 
   const [heading, setHeading] = useState("");
-  const [imageRows, setImageRows] = useState<string[][]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,20 +24,17 @@ const GallerySportsMeetSection = () => {
             ?.value || ""
         );
 
-        // Map images safely
-        const rows = data
-          .filter(
-            (i: any) =>
-              i.componentName === "Gallery_SportsMeet_Images" && i.value
-          )
-          .map((i: any) =>
+        // All images
+        const allImages = data
+          .filter((i: any) => i.componentName === "Gallery_SportsMeet_Images" && i.value)
+          .flatMap((i: any) =>
             (i.value as string)
               .split("|")
               .map((img: string) => img.trim())
-              .filter((img: string) => img.length > 0)
+              .filter(Boolean)
           );
 
-        setImageRows(rows);
+        setImages(allImages);
       } catch (error) {
         console.error("Failed to fetch gallery data:", error);
       }
@@ -48,27 +45,25 @@ const GallerySportsMeetSection = () => {
 
   return (
     <section className={s.sectionPadding} style={{ backgroundColor: c.bg }}>
-      {/* Heading */}
-      <div className={s.headingWrapper}>
+      <div className={s.container}>
+        
+        {/* Heading */}
         <h1 className={s.headingSize} style={{ color: c.heading }}>
           {heading}
         </h1>
-      </div>
 
-      {/* Image Rows */}
-      <div className={s.rowsWrapper}>
-        {imageRows.map((row, rowIndex) => (
-          <div key={rowIndex} className={s.imageRow}>
-            {row.map((img, imgIndex) => (
+        {/* Image Grid */}
+        <div className={s.imageGrid}>
+          {images.map((img, index) => (
+            <div key={index} className={s.imageOuter}>
               <img
-                key={imgIndex}
                 src={img}
-                alt={`Sports Meet ${rowIndex + 1}-${imgIndex + 1}`}
+                alt={`Sports Meet ${index + 1}`}
                 className={s.image}
               />
-            ))}
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

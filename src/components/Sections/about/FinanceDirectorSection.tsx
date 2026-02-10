@@ -81,17 +81,17 @@ const FinanceDirectorSection = () => {
           </div>
 
           {/* IMAGE */}
-          {data.image && (
-            <div className={s.imageWrapper}>
-              <Image
-                src={data.image}
-                alt={data.imageAlt}
-                width={400}
-                height={400}
-                className={s.imageStyle}
-              />
-            </div>
-          )}
+        {data.image && (
+  <div className={s.imageWrapper}>
+    <Image
+      src={data.image}
+      alt={data.imageAlt}
+      width={400}
+      height={350}
+      className={s.imageStyle} // uses updated max-width
+    />
+  </div>
+)}
 
         </div>
       </div>

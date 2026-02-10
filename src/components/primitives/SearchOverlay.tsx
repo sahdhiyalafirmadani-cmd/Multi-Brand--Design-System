@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useBrand } from "@/theme/use-brand";
+import { useParams, useRouter } from "next/navigation"; // ⭐ added
 
 interface SearchOverlayProps {
   open: boolean;
@@ -12,6 +13,10 @@ interface SearchOverlayProps {
 const SearchOverlay: React.FC<SearchOverlayProps> = ({ open, setOpen }) => {
   const { colors, typography, spacing } = useBrand();
   const overlayColors = colors.searchOverlay;
+
+  const router = useRouter(); // ⭐
+  const params = useParams();
+  const brand = params?.brand || "alif"; // ⭐ brand
 
   const [query, setQuery] = useState("");
   const [showError, setShowError] = useState(false);
@@ -25,8 +30,17 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ open, setOpen }) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) setShowError(true);
-    else setShowError(false);
+
+    if (!query.trim()) {
+      setShowError(true);
+      return;
+    }
+
+    setShowError(false);
+
+    // ⭐ redirect to search page
+    router.push(`/${brand}/search?q=${encodeURIComponent(query)}`);
+    setOpen(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,14 +56,9 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ open, setOpen }) => {
       style={{ backgroundColor: overlayColors.bg, minHeight: "8rem" }}
     >
       <div className="relative w-full flex justify-between items-start">
-        {/* Search Form */}
         <form onSubmit={handleSearch} className="flex items-center gap-2 flex-1">
-          <button
-            type="submit"
-            className="p-2"
-            style={{ color: overlayColors.icon }}
-          >
-            <FaSearch className="transition-colors duration-200 hover:cursor-pointer" />
+          <button type="submit" className="p-2" style={{ color: overlayColors.icon }}>
+            <FaSearch />
           </button>
 
           <input
@@ -66,17 +75,11 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ open, setOpen }) => {
           />
         </form>
 
-        {/* Close Button */}
-        <button
-          onClick={() => setOpen(false)}
-          className="text-3xl ml-4"
-          style={{ color: overlayColors.icon }}
-        >
+        <button onClick={() => setOpen(false)} className="text-3xl ml-4" style={{ color: overlayColors.icon }}>
           &times;
         </button>
       </div>
 
-      {/* Error Tooltip */}
       {showError && (
         <div className="flex justify-center mt-2">
           <div
@@ -88,7 +91,6 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ open, setOpen }) => {
               border: `1px solid ${overlayColors.errorBorder}`,
             }}
           >
-            {/* Arrow */}
             <div
               className="absolute left-4 -top-2 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[6px] border-l-transparent border-r-transparent"
               style={{ borderBottomColor: overlayColors.errorBorder }}
@@ -98,7 +100,6 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ open, setOpen }) => {
               style={{ borderBottomColor: overlayColors.errorBg }}
             />
 
-            {/* Error content */}
             <div
               className="w-5 h-5 flex items-center justify-center text-white font-bold rounded"
               style={{ backgroundColor: overlayColors.errorIconBg }}

@@ -325,7 +325,7 @@ historySection: {
   paragraphMarginBottom: "mb-6",
 
   buttonWidth: "180px",
-  buttonAlign: "flex justify-center md:justify-start",
+  buttonAlign: "flex justify-center",
 
   image: "rounded transition-transform duration-300 hover:scale-105",
 },
@@ -345,7 +345,7 @@ ourValuesSection: {
   headingFont: "text-2xl md:text-3xl font-bold underline",
   headingFlex: "relative z-10 text-center",
 
-  textFont: "text-base md:text-lg text-gray-600",
+  textFont: "text-base md:text-lg",
   textFlex: "relative z-10 text-center mt-4",
 
   logo: {
@@ -394,12 +394,13 @@ ourValuesSection: {
       headingFont: "text-3xl md:text-4xl font-bold",
       headingMarginBottom: "mb-10",
 
-      contentContainer: "flex flex-col-reverse md:flex-row items-start md:items-center gap-8 md:gap-16",
+      contentContainer: "flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12",
 
-      imageWrapper: "w-full md:w-[40%] flex justify-center flex-shrink-0",
-      imageStyle: "w-full h-auto rounded-xl shadow-lg object-cover",
+// Image first on mobile
+imageWrapper: "order-1 w-full md:order-0 md:w-[30%] flex justify-center flex-shrink-0",
+imageStyle: "w-full max-w-[250px] md:max-w-[100%] h-auto rounded-xl shadow-md",
 
-      textWrapper: "w-full md:w-[60%] text-justify",
+textWrapper: "order-2 w-full md:order-1 md:w-[65%] text-justify",
     },
 
     //ACHIEVEMENTS PAGE 
@@ -431,36 +432,49 @@ achievementsAcademic: {
 },
 
 achievementsAchievers: {
-  sectionPadding: "py-8 md:py-12",
+  sectionPadding: "py-10 md:py-16",
 
-  wrapper: "flex flex-col items-center gap-10",
+  // GRID → 1 column mobile, 2 column desktop
+  wrapper:
+    "grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14",
 
-  itemWrapper: "flex flex-col items-center text-center gap-3",
+  // EACH CARD
+  card:
+    "flex items-center gap-5 md:gap-6",
 
+  // BIGGER IMAGE
   imageWrapper:
-    "relative w-24 h-24 md:w-32 md:h-32  overflow-hidden",
+    "relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 flex-shrink-0",
 
-  nameText: "text-base md:text-lg font-bold",
+  nameText: "text-lg md:text-xl font-bold",
 
   descriptionText:
-    "text-sm md:text-base max-w-xl text-center leading-relaxed",
+    "text-sm md:text-base leading-relaxed",
 },
 
 athleticAchievements: {
-  // Section padding
-  sectionPadding: "py-8 md:py-12",
+  sectionPadding: "py-10 md:py-16",
 
-  // Wrapper for all headings
-  headingWrapper: "flex flex-col items-center text-center gap-4 w-full",
+  // MAIN HEADING CENTER
+  mainHeading:
+    "text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8 md:mb-12",
 
-  // Headings: same size on small screens
-  headingSize: "text-2xl sm:text-2xl md:text-3xl lg:text-3xl",
-  headingWeight: "font-bold",
+  // GRID
+  itemsGrid:
+    "flex flex-col items-center gap-10 md:grid md:grid-cols-3 md:gap-12",
 
-  // Items (individual headings + images)
-  itemWrapper: "flex flex-col items-center text-center gap-3",
-  imageWrapper: "relative w-32 h-32 md:w-40 md:h-40 mx-auto",
+  // EACH ITEM
+  itemWrapper:
+    "flex flex-col items-center text-center gap-4",
+
+  subHeading:
+    "text-lg md:text-xl font-semibold",
+
+  // BIGGER IMAGES
+  imageWrapper:
+    "relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 mx-auto",
 },
+
 
 //events 
 
@@ -551,48 +565,62 @@ careersTeachers: {
 //GALLERY PAGE
 
  gallerySectionOne: {
-  sectionPadding: "py-8 md:py-12",
+  // SECTION PADDING (top/bottom)
+  sectionPadding: "py-12 md:py-16",
 
-  headingWrapper: "flex justify-center mb-6",
-  headingSize: "text-xl md:text-3xl font-bold",
+  // CENTER CONTAINER
+  container:
+    "max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10",
 
-  galleryWrapper: "flex overflow-x-auto gap-4",
-  imageWrapper:
-    "flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] h-[150px] md:h-[200px] lg:h-[250px] object-cover rounded shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer",
+  // EACH SUBSECTION
+  subsectionWrapper: "mb-12 md:mb-16",
+
+  // HEADING
+  heading:
+    "text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-center md:text-left",
+
+  // IMAGE SCROLL ROW
+  galleryWrapper:
+    "flex gap-5 overflow-x-auto pb-2 scroll-smooth",
+
+  // OUTER IMAGE BOX
+  imageOuter:
+    "flex-shrink-0",
+
+  // IMAGE SIZE
+  image:
+    "w-[220px] h-[160px] sm:w-[260px] sm:h-[190px] md:w-[300px] md:h-[220px] lg:w-[340px] lg:h-[250px] object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl",
 },
 
+
 gallerySportsMeet: {
-  sectionPadding: "py-8 md:py-12 px-4",
+  sectionPadding: "py-12 md:py-16",
+  container:
+    "max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10",
 
-  headingWrapper: "flex justify-center mb-6",
-  headingSize: "text-2xl md:text-4xl font-bold text-center",
+  headingSize: "text-2xl md:text-4xl font-bold text-center mb-8",
 
-  /* container for all rows */
-  rowsWrapper: "flex flex-col gap-6",
+  imageGrid: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6",
 
-  /* each row of images */
-  imageRow: "flex justify-center flex-wrap gap-4",
-
-  /* image styling */
+  imageOuter: "w-full",
   image:
-    "w-[150px] sm:w-[180px] md:w-[220px] h-auto rounded shadow hover:scale-105 transition-transform",
+    "w-full aspect-[4/3] object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl",
 },
 
 galleryIndependence: {
-  sectionPadding: "py-8 md:py-12 px-4",
+  sectionPadding: "py-12 md:py-16",
+  container: "max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10",
+  sectionWrapper: "mb-12 md:mb-16",
+  headingSize: "text-2xl md:text-4xl font-bold text-center mb-8",
 
-  headingWrapper: "flex justify-center mb-6",
-  headingSize: "text-2xl md:text-4xl font-bold text-center",
-
-  rowsWrapper: "flex flex-col gap-6",
-
-  /* Horizontal scroll small screens, wrap & center on medium+ screens */
-  scrollRow:
-    "flex gap-4 py-2 overflow-x-auto flex-nowrap sm:flex-nowrap md:flex-wrap md:justify-center",
-
+  // GRID layout for all images
+  imageGrid: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6",
+  imageOuter: "w-full",
   image:
-    "w-[150px] sm:w-[180px] md:w-[220px] h-auto rounded shadow hover:scale-105 transition-transform",
+    "w-full aspect-[4/3] object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl",
 },
+
+
  
 
 //contact 
@@ -609,7 +637,8 @@ contactBanner: {
       sectionPadding: "pt-10 pb-14 md:pb-16 lg:pb-20",
       sectionWrapper: "flex flex-col md:flex-row justify-center items-center gap-10 md:gap-16 lg:gap-20",
       itemWrapper: "flex flex-col items-center text-center gap-4",
-      image: "w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] lg:w-[140px] lg:h-[140px] object-contain",
+     image: "w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[100px] md:h-[100px] lg:w-[120px] lg:h-[120px] max-w-[120px] max-h-[120px] object-contain",
+
       heading: "font-bold text-xl md:text-2xl lg:text-3xl",
       text: "text-sm md:text-base lg:text-lg whitespace-pre-line",
     },

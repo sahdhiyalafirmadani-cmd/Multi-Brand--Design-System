@@ -83,7 +83,11 @@ const OurValuesSection = () => {
             {/* Content */}
             <div className={section.textFlex}>
               {box.content.split("<br />").map((line, i) => (
-                <p key={i} className={section.textFont}>
+                <p
+  key={i}
+  className={section.textFont}
+  style={{ color: sectionColors.text }}
+>
                   {line}
                 </p>
               ))}
